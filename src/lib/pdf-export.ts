@@ -17,7 +17,7 @@ export function generatePrintHTML(places: Place[], watermark: boolean): string {
   return `<!DOCTYPE html>
 <html><head>
 <meta charset="utf-8"/>
-<title>MapSave Guide</title>
+<title>ExportPlaces Guide</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Figtree:wght@400;500&display=swap" rel="stylesheet">
 <style>
   body { font-family: 'Figtree', sans-serif; max-width: 700px; margin: 40px auto; color: #1a1a2e; }
@@ -29,7 +29,7 @@ export function generatePrintHTML(places: Place[], watermark: boolean): string {
 </head><body>
 <h1 style="font-family:'DM Serif Display',serif;margin-bottom:24px;">Your Saved Places</h1>
 <table>${rows}</table>
-${watermark ? '<div class="watermark">Generated with MapSave — mapsave.app</div>' : ""}
+${watermark ? '<div class="watermark">Generated with ExportPlaces</div>' : ""}
 </body></html>`;
 }
 
