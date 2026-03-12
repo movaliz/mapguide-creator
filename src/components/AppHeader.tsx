@@ -12,7 +12,7 @@ const AppHeader = ({ hasPlaces, onExportPDF, onPrint, onShare }: AppHeaderProps)
     <header className="flex items-center justify-between py-4 px-6">
       <div className="flex items-center gap-2">
         <MapPin className="text-primary h-5 w-5" />
-        <span className="font-display text-xl text-foreground">MapSave</span>
+        <span className="font-display text-xl text-foreground">ExportPlaces</span>
       </div>
       {hasPlaces && (
         <div className="flex items-center gap-2">

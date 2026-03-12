@@ -29,7 +29,7 @@ export function generatePrintHTML(places: Place[], watermark: boolean): string {
 </head><body>
 <h1 style="font-family:'DM Serif Display',serif;margin-bottom:24px;">Your Saved Places</h1>
 <table>${rows}</table>
-${watermark ? '<div class="watermark">Generated with MapSave — mapsave.app</div>' : ""}
+${watermark ? '<div class="watermark">Generated with ExportPlaces</div>' : ""}
 </body></html>`;
 }
 
