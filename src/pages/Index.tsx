@@ -24,6 +24,8 @@ const Index = () => {
   const [places, setPlaces] = useState<Place[]>([]);
   const [loading, setLoading] = useState(false);
   const [pricingOpen, setPricingOpen] = useState(false);
+  const [viewFormat, setViewFormat] = useState<ViewFormat>("share");
+  const uploadRef = useRef<HTMLDivElement>(null);
   const uploadRef = useRef<HTMLDivElement>(null);
 
   const isPaid = false;
