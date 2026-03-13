@@ -11,6 +11,7 @@ import PricingSection from "@/components/PricingSection";
 import SocialProof from "@/components/SocialProof";
 import FAQ from "@/components/FAQ";
 import FinalCTA from "@/components/FinalCTA";
+import HeroSection from "@/components/HeroSection";
 import { parseGoogleMapsCSV, type Place } from "@/lib/csv-parser";
 import { downloadPDF, printPlaces } from "@/lib/pdf-export";
 import MapPin from "@/components/MapPin";
@@ -65,15 +66,13 @@ const Index = () => {
     }
   };
 
-  const handleReset = () => {
-    setPlaces([]);
-  };
+  const handleReset = () => setPlaces([]);
 
   const scrollToUpload = () => {
     uploadRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // If user has uploaded places, show the list view
+  // Places list view
   if (places.length > 0) {
     return (
       <div className="min-h-screen flex flex-col">
@@ -105,27 +104,26 @@ const Index = () => {
             </div>
 
             <div className="flex gap-2 mb-4 sm:hidden">
-              <button
-                onClick={() => handleExport("pdf")}
-                className="flex-1 rounded-lg py-2.5 text-label bg-primary text-primary-foreground"
-              >
-                PDF
-              </button>
-              <button
-                onClick={() => handleExport("print")}
-                className="flex-1 rounded-lg py-2.5 text-label bg-secondary text-secondary-foreground"
-              >
-                Print
-              </button>
-              <button
-                onClick={() => handleExport("share")}
-                className="flex-1 rounded-lg py-2.5 text-label bg-secondary text-secondary-foreground"
-              >
-                Share
-              </button>
+              {[
+                { label: "PDF", action: () => handleExport("pdf"), primary: true },
+                { label: "Print", action: () => handleExport("print"), primary: false },
+                { label: "Share", action: () => handleExport("share"), primary: false },
+              ].map(({ label, action, primary }) => (
+                <button
+                  key={label}
+                  onClick={action}
+                  className={`flex-1 rounded-lg py-2.5 text-label ${
+                    primary
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-secondary text-secondary-foreground"
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
             </div>
 
-            <div className="rounded-xl border border-border overflow-hidden">
+            <div className="rounded-xl border border-border overflow-hidden shadow-soft">
               <PlaceList
                 places={places}
                 maxVisible={isPaid ? undefined : FREE_LIMIT}
@@ -133,8 +131,8 @@ const Index = () => {
             </div>
           </motion.div>
         </main>
-        <footer className="py-6 text-center text-xs text-muted-foreground/60">
-          ExportPlaces — Transform your saved places into guides
+        <footer className="py-8 text-center text-xs text-muted-foreground/60">
+          ExportPlaces — Share your saved places with anyone
         </footer>
         <PricingModal open={pricingOpen} onClose={() => setPricingOpen(false)} />
       </div>
@@ -151,39 +149,14 @@ const Index = () => {
         onShare={() => {}}
       />
 
-      {/* Hero */}
-      <section className="w-full max-w-[960px] mx-auto px-4 sm:px-6 pt-16 pb-20 sm:pt-24 sm:pb-28">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ type: "spring", duration: 0.6, bounce: 0 }}
-          className="text-center max-w-3xl mx-auto"
-        >
-          <h1 className="text-hero font-display text-foreground mb-5" style={{ textWrap: "balance" }}>
-            Turn your Google Maps saved places into a beautiful guide.
-          </h1>
-          <p className="text-lg sm:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
-            Google Maps doesn't let you export or share your saved places. ExportPlaces fixes that in seconds.
-          </p>
-          <motion.button
-            onClick={scrollToUpload}
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            className="rounded-xl px-8 py-4 text-label bg-primary text-primary-foreground hover:shadow-[0_0_24px_-4px_hsl(var(--primary)/0.5)] transition-shadow"
-          >
-            Export My Places Free
-          </motion.button>
-        </motion.div>
-      </section>
+      <HeroSection onCTA={scrollToUpload} />
 
-      {/* Social proof bar */}
       <SocialProof />
 
-      {/* How it works */}
       <HowItWorks />
 
       {/* Upload section */}
-      <section ref={uploadRef} className="w-full max-w-[960px] mx-auto px-4 sm:px-6 py-20">
+      <section ref={uploadRef} className="w-full max-w-[1100px] mx-auto px-4 sm:px-6 py-24">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -194,7 +167,7 @@ const Index = () => {
           <h2 className="font-display text-3xl sm:text-4xl text-foreground mb-3">
             Ready? Upload your CSV.
           </h2>
-          <p className="text-muted-foreground">
+          <p className="text-muted-foreground text-lg">
             It takes less than 30 seconds. Your data never leaves your browser.
           </p>
         </motion.div>
@@ -218,20 +191,16 @@ const Index = () => {
         )}
       </section>
 
-      {/* Preview mockup */}
       <PreviewMockup />
 
-      {/* Pricing */}
       <PricingSection onSelectPlan={() => setPricingOpen(true)} />
 
-      {/* FAQ */}
       <FAQ />
 
-      {/* Final CTA */}
       <FinalCTA onCTA={scrollToUpload} />
 
-      <footer className="py-8 text-center text-xs text-muted-foreground/60">
-        ExportPlaces — Transform your saved places into guides
+      <footer className="py-8 text-center text-xs text-muted-foreground/60 border-t border-border/50">
+        ExportPlaces — Share your saved places with anyone
       </footer>
 
       <PricingModal open={pricingOpen} onClose={() => setPricingOpen(false)} />

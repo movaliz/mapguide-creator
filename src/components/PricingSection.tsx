@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Check } from "lucide-react";
+import { Check, Star } from "lucide-react";
 
 interface PricingSectionProps {
   onSelectPlan: () => void;
@@ -20,44 +20,44 @@ const tiers = [
     price: "$5",
     period: "one-time",
     description: "Export one beautiful guide",
-    features: ["Full place list (no limit)", "PDF download", "Print-ready layout", "No watermark"],
+    features: ["Full place list (no limit)", "PDF download", "Shareable link", "No watermark"],
     cta: "Buy One Export",
     recommended: false,
   },
   {
-    name: "Unlimited Monthly",
+    name: "Unlimited",
     price: "$10",
     period: "/month",
     description: "Unlimited lists, all formats",
-    features: ["Unlimited lists", "PDF, Print & Share Link", "No watermark", "Saved to your account"],
-    cta: "Start Monthly",
+    features: ["Unlimited lists", "PDF, Print & Share Link", "No watermark", "Priority support"],
+    cta: "Start Unlimited",
     recommended: true,
   },
   {
-    name: "Unlimited Annual",
+    name: "Annual",
     price: "$45",
     period: "/year",
-    description: "Save 62% with annual billing",
-    features: ["Everything in Monthly", "62% savings", "Priority support", "Early access features"],
+    description: "Save 62% — best value",
+    features: ["Everything in Unlimited", "62% savings", "Early access features", "Priority support"],
     cta: "Start Annual",
     recommended: false,
   },
 ];
 
 const PricingSection = ({ onSelectPlan }: PricingSectionProps) => (
-  <section className="w-full bg-surface/50 border-y border-border">
-    <div className="max-w-[1100px] mx-auto px-4 sm:px-6 py-20">
+  <section id="pricing" className="w-full bg-section-gradient">
+    <div className="max-w-[1100px] mx-auto px-4 sm:px-6 py-24">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ type: "spring", duration: 0.5, bounce: 0 }}
-        className="text-center mb-14"
+        transition={{ type: "spring", duration: 0.6, bounce: 0 }}
+        className="text-center mb-16"
       >
-        <h2 className="font-display text-3xl sm:text-4xl text-foreground mb-3">
+        <h2 className="font-display text-3xl sm:text-5xl text-foreground mb-4">
           Simple, honest pricing
         </h2>
-        <p className="text-muted-foreground">No hidden fees. Cancel anytime.</p>
+        <p className="text-muted-foreground text-lg">No hidden fees. Cancel anytime.</p>
       </motion.div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -68,26 +68,28 @@ const PricingSection = ({ onSelectPlan }: PricingSectionProps) => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.08, type: "spring", duration: 0.5, bounce: 0 }}
-            className={`rounded-2xl bg-background p-6 flex flex-col border ${
+            className={`relative rounded-2xl bg-background p-6 flex flex-col border transition-shadow ${
               tier.recommended
-                ? "border-accent shadow-[0_0_24px_-4px_hsl(var(--accent)/0.3)]"
-                : "border-border"
+                ? "border-primary shadow-glow"
+                : "border-border shadow-soft hover:shadow-elevated"
             }`}
           >
             {tier.recommended && (
-              <span className="text-label text-accent mb-3 block">Most Popular</span>
+              <span className="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1 rounded-full bg-primary text-primary-foreground px-3 py-1 text-xs font-semibold uppercase tracking-wider">
+                <Star className="h-3 w-3" /> Most Popular
+              </span>
             )}
-            <h3 className="font-display text-xl text-foreground">{tier.name}</h3>
-            <div className="mt-2 mb-1">
-              <span className="text-3xl font-body font-semibold text-foreground">{tier.price}</span>
+            <h3 className="font-display text-xl text-foreground mt-1">{tier.name}</h3>
+            <div className="mt-3 mb-1">
+              <span className="text-4xl font-body font-bold text-foreground">{tier.price}</span>
               {tier.period && (
                 <span className="text-muted-foreground text-sm ml-1">{tier.period}</span>
               )}
             </div>
-            <p className="text-sm text-muted-foreground mb-5">{tier.description}</p>
-            <ul className="space-y-2 mb-6 flex-1">
+            <p className="text-sm text-muted-foreground mb-6">{tier.description}</p>
+            <ul className="space-y-2.5 mb-8 flex-1">
               {tier.features.map((f) => (
-                <li key={f} className="flex items-center gap-2 text-sm text-foreground">
+                <li key={f} className="flex items-center gap-2.5 text-sm text-foreground">
                   <Check className="h-4 w-4 text-primary shrink-0" />
                   {f}
                 </li>
@@ -97,9 +99,9 @@ const PricingSection = ({ onSelectPlan }: PricingSectionProps) => (
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
               onClick={tier.name === "Free" ? undefined : onSelectPlan}
-              className={`w-full rounded-lg py-3 text-label transition-all ${
+              className={`w-full rounded-xl py-3.5 text-label transition-all ${
                 tier.recommended
-                  ? "bg-primary text-primary-foreground hover:shadow-[0_0_16px_-2px_hsl(var(--primary)/0.4)]"
+                  ? "bg-primary text-primary-foreground shadow-glow hover:shadow-[0_0_48px_-8px_hsl(var(--primary)/0.4)]"
                   : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
               }`}
             >
