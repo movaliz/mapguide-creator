@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import type { Place } from "@/lib/json-parser";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, MapPin } from "lucide-react";
 
 interface PlaceCardGridProps {
   places: Place[];
@@ -11,7 +11,6 @@ function getCountryCode(address: string): string | null {
   const parts = address.split(",").map((s) => s.trim());
   const last = parts[parts.length - 1];
   if (!last) return null;
-  // Common country name → code mapping
   const map: Record<string, string> = {
     germany: "DE", deutschland: "DE", france: "FR", spain: "ES", españa: "ES",
     italy: "IT", italia: "IT", turkey: "TR", türkiye: "TR", "united states": "US",
@@ -27,7 +26,6 @@ function getCountryCode(address: string): string | null {
   };
   const lower = last.toLowerCase();
   if (map[lower]) return map[lower];
-  // If it's already a 2-letter code
   if (last.length === 2 && last === last.toUpperCase()) return last;
   return null;
 }
@@ -47,101 +45,82 @@ function formatDate(dateStr: string | null): string | null {
 
 const container = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.05 } },
+  show: { transition: { staggerChildren: 0.04 } },
 };
 
 const item = {
-  hidden: { opacity: 0, y: 16, scale: 0.97 },
-  show: { opacity: 1, y: 0, scale: 1, transition: { type: "spring" as const, duration: 0.5, bounce: 0 } },
+  hidden: { opacity: 0, y: 12 },
+  show: { opacity: 1, y: 0, transition: { type: "spring" as const, duration: 0.45, bounce: 0 } },
 };
 
 const PlaceCardGrid = ({ places, maxVisible }: PlaceCardGridProps) => {
   const visible = maxVisible ? places.slice(0, maxVisible) : places;
-  const hasMore = maxVisible ? places.length > maxVisible : false;
 
   return (
-    <div>
-      <motion.div
-        variants={container}
-        initial="hidden"
-        animate="show"
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
-      >
-        {visible.map((place, i) => {
-          const country = getCountryCode(place.address);
-          const date = formatDate(place.date);
-          const hasCoords = place.lat !== null && place.lng !== null;
+    <motion.div
+      variants={container}
+      initial="hidden"
+      animate="show"
+      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+    >
+      {visible.map((place, i) => {
+        const country = getCountryCode(place.address);
+        const date = formatDate(place.date);
 
-          return (
-            <motion.div
-              key={i}
-              variants={item}
-              className="group relative bg-background rounded-2xl border border-border shadow-soft hover:shadow-elevated transition-all duration-300 overflow-hidden"
-            >
-              {/* Map thumbnail */}
-              {hasCoords && (
-                <div className="h-36 bg-muted/30 relative overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="relative">
-                      <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
-                        <span className="text-2xl">📍</span>
-                      </div>
-                      <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 text-[10px] font-mono text-muted-foreground bg-background/80 px-1.5 py-0.5 rounded">
-                        {place.lat!.toFixed(4)}, {place.lng!.toFixed(4)}
-                      </div>
-                    </div>
-                  </div>
-                  {/* Decorative grid lines */}
-                  <div className="absolute inset-0 opacity-[0.04]" style={{
-                    backgroundImage: "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
-                    backgroundSize: "24px 24px",
-                  }} />
-                </div>
-              )}
-
-              <div className="p-5">
-                <div className="flex items-start justify-between gap-2 mb-2">
-                  <h3 className="font-display text-lg leading-tight text-foreground group-hover:text-primary transition-colors">
-                    {place.title}
-                  </h3>
-                  {country && (
-                    <span className="shrink-0 text-[11px] font-semibold tracking-wide bg-muted text-muted-foreground px-2 py-0.5 rounded-md">
-                      {country}
-                    </span>
-                  )}
-                </div>
-
-                {place.address && (
-                  <p className="text-sm text-muted-foreground mb-3 line-clamp-2">
-                    {place.address}
-                  </p>
-                )}
-
-                <div className="flex items-center justify-between">
-                  {date && (
-                    <span className="text-xs text-muted-foreground/70">
-                      Saved {date}
-                    </span>
-                  )}
-                  {place.url && (
-                    <a
-                      href={place.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:text-primary/80 transition-colors"
-                    >
-                      Open in Maps
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
-                  )}
+        return (
+          <motion.div
+            key={i}
+            variants={item}
+            className="group relative bg-card rounded-3xl border border-border shadow-soft hover:shadow-elevated hover:border-primary/20 transition-all duration-300 overflow-hidden"
+          >
+            {/* Map area */}
+            <div className="h-28 bg-primary-soft relative overflow-hidden">
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-full bg-primary/15 flex items-center justify-center">
+                  <MapPin className="w-5 h-5 text-primary" />
                 </div>
               </div>
-            </motion.div>
-          );
-        })}
-      </motion.div>
+              {country && (
+                <span className="absolute top-3 right-3 text-[11px] font-semibold tracking-wide bg-card/90 backdrop-blur-sm text-foreground px-2.5 py-1 rounded-full shadow-soft">
+                  {country}
+                </span>
+              )}
+            </div>
 
-    </div>
+            <div className="p-4">
+              <h3 className="font-display text-lg leading-tight text-foreground mb-1.5 group-hover:text-primary transition-colors">
+                {place.title}
+              </h3>
+
+              {place.address && (
+                <p className="text-sm text-muted-foreground mb-3 line-clamp-2 leading-relaxed">
+                  {place.address}
+                </p>
+              )}
+
+              <div className="flex items-center justify-between pt-2 border-t border-border/60">
+                {date ? (
+                  <span className="text-xs text-muted-foreground/70">
+                    {date}
+                  </span>
+                ) : <span />}
+                {place.url && (
+                  <a
+                    href={place.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:text-primary/80 transition-colors rounded-full bg-primary/[0.07] px-3 py-1.5"
+                  >
+                    Open in Maps
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                )}
+              </div>
+            </div>
+          </motion.div>
+        );
+      })}
+    </motion.div>
   );
 };
 

@@ -45,7 +45,7 @@ const tiers = [
 ];
 
 const PricingSection = ({ onSelectPlan }: PricingSectionProps) => (
-  <section id="pricing" className="w-full bg-section-gradient">
+  <section id="pricing" className="w-full">
     <div className="max-w-[1100px] mx-auto px-4 sm:px-6 py-24">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -68,14 +68,14 @@ const PricingSection = ({ onSelectPlan }: PricingSectionProps) => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.08, type: "spring", duration: 0.5, bounce: 0 }}
-            className={`relative rounded-2xl bg-background p-6 flex flex-col border transition-shadow ${
+            className={`relative rounded-3xl bg-card p-6 flex flex-col border transition-all duration-300 ${
               tier.recommended
                 ? "border-primary shadow-glow"
-                : "border-border shadow-soft hover:shadow-elevated"
+                : "border-border shadow-soft hover:shadow-elevated hover:border-primary/20"
             }`}
           >
             {tier.recommended && (
-              <span className="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1 rounded-full bg-primary text-primary-foreground px-3 py-1 text-xs font-semibold uppercase tracking-wider">
+              <span className="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1 rounded-full bg-primary text-primary-foreground px-3 py-1 text-xs font-semibold tracking-wider">
                 <Star className="h-3 w-3" /> Most Popular
               </span>
             )}
@@ -90,7 +90,9 @@ const PricingSection = ({ onSelectPlan }: PricingSectionProps) => (
             <ul className="space-y-2.5 mb-8 flex-1">
               {tier.features.map((f) => (
                 <li key={f} className="flex items-center gap-2.5 text-sm text-foreground">
-                  <Check className="h-4 w-4 text-primary shrink-0" />
+                  <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <Check className="h-3 w-3 text-primary" />
+                  </div>
                   {f}
                 </li>
               ))}
@@ -99,10 +101,10 @@ const PricingSection = ({ onSelectPlan }: PricingSectionProps) => (
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
               onClick={tier.name === "Free" ? undefined : onSelectPlan}
-              className={`w-full rounded-xl py-3.5 text-label transition-all ${
+              className={`w-full rounded-full py-3.5 text-label transition-all ${
                 tier.recommended
-                  ? "bg-primary text-primary-foreground shadow-glow hover:shadow-[0_0_48px_-8px_hsl(var(--primary)/0.4)]"
-                  : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
+                  ? "bg-primary text-primary-foreground shadow-glow hover:shadow-[0_0_48px_-8px_hsl(var(--primary)/0.45)]"
+                  : "bg-surface text-foreground border border-border hover:border-primary/30 hover:bg-primary-soft"
               }`}
             >
               {tier.cta}

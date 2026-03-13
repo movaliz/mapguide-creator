@@ -192,7 +192,7 @@ const Index = () => {
       <FinalCTA onCTA={scrollToUpload} />
 
       <footer className="py-8 text-center text-xs text-muted-foreground/60 border-t border-border/50">
-        ExportPlaces — Share your saved places with anyone
+        exportmymap.com — Share your saved places with anyone
       </footer>
 
       <PricingModal open={pricingOpen} onClose={() => setPricingOpen(false)} />

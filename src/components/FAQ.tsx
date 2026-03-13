@@ -9,19 +9,19 @@ import {
 const faqs = [
   {
     q: "What is Google Takeout?",
-    a: "Google Takeout is a free service from Google that lets you download your data — including saved places from Google Maps. Go to takeout.google.com, select 'Saved' under Maps, and export. You'll get a CSV file with all your saved places.",
+    a: "Google Takeout is a free service from Google that lets you download your data — including saved places from Google Maps. Go to takeout.google.com, select 'Saved' under Maps, and export. You'll get a JSON file with all your saved places.",
   },
   {
     q: "Do I need Google Takeout if I use the Chrome extension?",
-    a: "No! The Chrome extension works directly inside Google Maps — no file downloads or Takeout needed. Just click Export and you're done. Takeout is only needed if you prefer the CSV upload method.",
+    a: "No! The Chrome extension works directly inside Google Maps — no file downloads or Takeout needed. Just click Export and you're done. Takeout is only needed if you prefer the JSON upload method.",
   },
   {
     q: "What formats can I export?",
-    a: "ExportPlaces supports three output formats: a shareable link anyone can open in their browser, a beautiful PDF travel guide you can download, and a print-optimized layout for paper copies.",
+    a: "exportmymap.com supports three output formats: a shareable link anyone can open in their browser, a beautiful PDF travel guide you can download, and a print-optimized layout for paper copies.",
   },
   {
     q: "Is my data safe?",
-    a: "Absolutely. Your CSV file is parsed entirely in your browser — your data never leaves your device. We don't upload, store, or share your places unless you explicitly create a shared link.",
+    a: "Absolutely. Your JSON file is parsed entirely in your browser — your data never leaves your device. We don't upload, store, or share your places unless you explicitly create a shared link.",
   },
   {
     q: "Can I cancel my subscription?",
@@ -54,7 +54,7 @@ const FAQ = () => (
           <AccordionItem
             key={i}
             value={`faq-${i}`}
-            className="border border-border rounded-2xl px-6 bg-background shadow-soft"
+            className="border border-border rounded-3xl px-6 bg-card shadow-soft"
           >
             <AccordionTrigger className="font-display text-lg text-foreground hover:no-underline py-5">
               {faq.q}
