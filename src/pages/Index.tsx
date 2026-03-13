@@ -3,7 +3,9 @@ import { motion } from "framer-motion";
 import { toast } from "sonner";
 import AppHeader from "@/components/AppHeader";
 import FileDropzone from "@/components/FileDropzone";
+import PlaceCardGrid from "@/components/PlaceCardGrid";
 import PlaceList from "@/components/PlaceList";
+import FormatToggle, { type ViewFormat } from "@/components/FormatToggle";
 import PricingModal from "@/components/PricingModal";
 import HowItWorks from "@/components/HowItWorks";
 import PreviewMockup from "@/components/PreviewMockup";
@@ -22,6 +24,7 @@ const Index = () => {
   const [places, setPlaces] = useState<Place[]>([]);
   const [loading, setLoading] = useState(false);
   const [pricingOpen, setPricingOpen] = useState(false);
+  const [viewFormat, setViewFormat] = useState<ViewFormat>("share");
   const uploadRef = useRef<HTMLDivElement>(null);
 
   const isPaid = false;
@@ -50,7 +53,6 @@ const Index = () => {
     const watermark = !isPaid;
 
     if (type === "share") {
-      // TODO: implement shareable link generation
       toast.info("Shareable links coming soon!");
       return;
     }
@@ -58,7 +60,17 @@ const Index = () => {
     if (type === "pdf") {
       downloadPDF(exportPlaces, watermark);
     } else if (type === "print") {
-      printPlaces(exportPlaces, watermark);
+      printPlaces(exportPlaces);
+    }
+  };
+
+  const handleFormatChange = (format: ViewFormat) => {
+    if (format === "pdf") {
+      handleExport("pdf");
+    } else if (format === "print") {
+      handleExport("print");
+    } else {
+      setViewFormat("share");
     }
   };
 
@@ -78,7 +90,7 @@ const Index = () => {
           onPrint={() => handleExport("print")}
           onShare={() => handleExport("share")}
         />
-        <main className="flex-1 w-full max-w-[960px] mx-auto px-4 sm:px-6">
+        <main className="flex-1 w-full max-w-[1100px] mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -99,32 +111,14 @@ const Index = () => {
               </button>
             </div>
 
-            <div className="flex gap-2 mb-4 sm:hidden">
-              {[
-                { label: "PDF", action: () => handleExport("pdf"), primary: true },
-                { label: "Print", action: () => handleExport("print"), primary: false },
-                { label: "Share", action: () => handleExport("share"), primary: false },
-              ].map(({ label, action, primary }) => (
-                <button
-                  key={label}
-                  onClick={action}
-                  className={`flex-1 rounded-lg py-2.5 text-label ${
-                    primary
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-secondary text-secondary-foreground"
-                  }`}
-                >
-                  {label}
-                </button>
-              ))}
+            <div className="mb-6">
+              <FormatToggle active={viewFormat} onChange={handleFormatChange} />
             </div>
 
-            <div className="rounded-xl border border-border overflow-hidden shadow-soft">
-              <PlaceList
-                places={places}
-                maxVisible={isPaid ? undefined : FREE_LIMIT}
-              />
-            </div>
+            <PlaceCardGrid
+              places={places}
+              maxVisible={isPaid ? undefined : FREE_LIMIT}
+            />
           </motion.div>
         </main>
         <footer className="py-8 text-center text-xs text-muted-foreground/60">
