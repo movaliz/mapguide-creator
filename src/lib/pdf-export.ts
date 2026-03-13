@@ -66,7 +66,7 @@ export function generatePdfHTML(places: Place[], watermark: boolean): string {
   tr { border-bottom: 1px solid #f0f0f0; }
   tr:last-child { border-bottom: none; }
   .header { margin-bottom: 32px; padding-bottom: 20px; border-bottom: 2px solid #1a1a2e; }
-  .header h1 { font-family: 'Playfair Display', Georgia, serif; font-size: 1.75rem; margin-bottom: 4px; }
+  .header h1 { font-family: 'DM Serif Display', Georgia, serif; font-size: 1.75rem; margin-bottom: 4px; }
   .header p { color: #9ca3af; font-size: 0.85rem; }
   ${watermark ? `.watermark { position: fixed; bottom: 20px; right: 24px; color: #d1d5db; font-size: 0.7rem; }` : ""}
   @media print {
