@@ -58,7 +58,7 @@ export function generatePdfHTML(places: Place[], watermark: boolean): string {
 <html><head>
 <meta charset="utf-8"/>
 <title>My Saved Places — exportmymap.com</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: 'DM Sans', sans-serif; max-width: 700px; margin: 40px auto; color: #1a1a2e; padding: 0 24px; }
