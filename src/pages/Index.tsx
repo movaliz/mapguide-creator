@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import AppHeader from "@/components/AppHeader";
 import FileDropzone from "@/components/FileDropzone";
 import PlaceCardGrid from "@/components/PlaceCardGrid";
-import PlaceList from "@/components/PlaceList";
+
 import FormatToggle, { type ViewFormat } from "@/components/FormatToggle";
 import PricingModal from "@/components/PricingModal";
 import HowItWorks from "@/components/HowItWorks";
