@@ -52,7 +52,7 @@ const container = {
 
 const item = {
   hidden: { opacity: 0, y: 16, scale: 0.97 },
-  show: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", duration: 0.5, bounce: 0 } },
+  show: { opacity: 1, y: 0, scale: 1, transition: { type: "spring" as const, duration: 0.5, bounce: 0 } },
 };
 
 const PlaceCardGrid = ({ places, maxVisible }: PlaceCardGridProps) => {
