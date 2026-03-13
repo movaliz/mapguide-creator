@@ -14,14 +14,14 @@ const formats: { id: ViewFormat; label: string; icon: typeof Link2 }[] = [
 ];
 
 const FormatToggle = ({ active, onChange }: FormatToggleProps) => (
-  <div className="flex gap-1 p-1 bg-muted/50 rounded-xl w-fit">
+  <div className="flex gap-1 p-1 bg-card border border-border rounded-full w-fit shadow-soft">
     {formats.map(({ id, label, icon: Icon }) => (
       <button
         key={id}
         onClick={() => onChange(id)}
-        className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+        className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
           active === id
-            ? "bg-background text-foreground shadow-soft"
+            ? "bg-primary text-primary-foreground shadow-soft"
             : "text-muted-foreground hover:text-foreground"
         }`}
       >
