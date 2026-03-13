@@ -40,6 +40,7 @@ const Index = () => {
       }
       setPlaces(parsed);
       toast.success(`Parsed ${parsed.length} places.`);
+      scrollToPlaces();
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "Couldn't read file.";
       toast.error(msg);
