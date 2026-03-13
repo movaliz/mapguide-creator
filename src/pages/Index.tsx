@@ -165,7 +165,7 @@ const Index = () => {
           className="text-center mb-10"
         >
           <h2 className="font-display text-3xl sm:text-4xl text-foreground mb-3">
-            Ready? Upload your CSV.
+            Ready? Upload your Saved Places.json
           </h2>
           <p className="text-muted-foreground text-lg">
             It takes less than 30 seconds. Your data never leaves your browser.

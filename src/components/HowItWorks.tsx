@@ -9,8 +9,8 @@ const optionA = [
 ];
 
 const optionB = [
-  { icon: Download, title: "Export from Google", desc: "Download your Saved Places via Takeout." },
-  { icon: Upload, title: "Upload CSV", desc: "Drag & drop the file — parsed in your browser." },
+  { icon: Download, title: "Export from Google", desc: "Download your Saved Places.json via Takeout." },
+  { icon: Upload, title: "Upload JSON", desc: "Drag & drop the file — parsed in your browser." },
   { icon: FileText, title: "Get your guide", desc: "Download a PDF, print it, or share a link." },
 ];
 
