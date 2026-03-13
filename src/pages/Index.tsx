@@ -49,13 +49,9 @@ const Index = () => {
     const exportPlaces = isPaid ? places : places.slice(0, FREE_LIMIT);
     const watermark = !isPaid;
 
-    if (!isPaid && places.length > FREE_LIMIT && type !== "print") {
-      setPricingOpen(true);
-      return;
-    }
-
     if (type === "share") {
-      setPricingOpen(true);
+      // TODO: implement shareable link generation
+      toast.info("Shareable links coming soon!");
       return;
     }
 
