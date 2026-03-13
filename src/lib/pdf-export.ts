@@ -46,7 +46,7 @@ export function generatePdfHTML(places: Place[], watermark: boolean): string {
               ${country ? `<span>${escapeHtml(country)}</span>` : ""}
               ${date ? `<span>Saved ${date}</span>` : ""}
             </div>
-            ${p.url ? `<div style="margin-top:4px;font-size:0.75rem;color:#6b7280;word-break:break-all;">${escapeHtml(p.url)}</div>` : ""}
+            ${p.url ? `<div style="margin-top:4px;font-size:0.75rem;word-break:break-all;"><a href="${escapeHtml(p.url)}" style="color:#2563eb;text-decoration:none;">${escapeHtml(p.url)}</a></div>` : ""}
           </div>
         </div>
       </td>
@@ -93,7 +93,7 @@ export function generatePrintHTML(places: Place[]): string {
       <td style="padding:4px 0;vertical-align:top;">
         <strong>${escapeHtml(p.title)}</strong>
         ${p.address ? ` — ${escapeHtml(p.address)}` : ""}
-        ${p.url ? `<br/><span style="font-size:0.75rem;color:#666;">${escapeHtml(p.url)}</span>` : ""}
+        ${p.url ? `<br/><a href="${escapeHtml(p.url)}" style="font-size:0.75rem;color:#2563eb;text-decoration:none;">${escapeHtml(p.url)}</a>` : ""}
       </td>
     </tr>`
     )
