@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Inter:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -65,27 +65,29 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'DM Sans', 'Inter', sans-serif;
   }
 
   h1, h2, h3, h4 {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'DM Sans', 'Inter', sans-serif;
+    font-weight: 700;
     -webkit-font-smoothing: antialiased;
   }
 }
 
 @layer utilities {
   .font-display {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'DM Sans', 'Inter', sans-serif;
+    font-weight: 700;
   }
   .font-body {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'DM Sans', 'Inter', sans-serif;
   }
   .text-hero {
     font-size: clamp(2.5rem, 5vw + 1rem, 4rem);
     line-height: 1.1;
-    letter-spacing: -0.02em;
-    font-weight: 400;
+    letter-spacing: -0.03em;
+    font-weight: 700;
   }
   .text-label {
     font-size: 0.875rem;

@@ -116,9 +116,24 @@ const Index = () => {
           <h2 className="font-display text-3xl sm:text-4xl text-foreground mb-3">
             Ready? Upload your Saved Places.json
           </h2>
-          <p className="text-muted-foreground text-lg">
+          <p className="text-muted-foreground text-lg mb-4">
             It takes less than 30 seconds. Your data never leaves your browser.
           </p>
+          <div className="inline-flex items-center gap-2 bg-card border border-border rounded-2xl px-5 py-3 shadow-soft text-sm text-muted-foreground">
+            <span>📂</span>
+            <span>
+              Go to{" "}
+              <a
+                href="https://takeout.google.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary font-medium hover:underline"
+              >
+                takeout.google.com
+              </a>
+              {" → "}Maps (your places) → <code className="bg-muted px-1.5 py-0.5 rounded text-xs font-mono text-foreground">Saved Places.json</code>
+            </span>
+          </div>
         </motion.div>
 
         {loading ? (
