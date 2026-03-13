@@ -7,6 +7,12 @@ export interface Place {
   date: string | null;
 }
 
+/** Build a reliable Google Maps link from coordinates */
+export function buildMapsUrl(lat: number | null, lng: number | null): string {
+  if (lat === null || lng === null) return "";
+  return `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+}
+
 interface TakeoutFeature {
   geometry?: { coordinates?: number[] };
   properties?: {
@@ -45,12 +51,15 @@ export function parseGoogleMapsJSON(text: string): Place[] {
     if (!title) continue;
 
     const coords = feature.geometry?.coordinates;
+    const lat = coords && coords.length >= 2 ? coords[1] : null;
+    const lng = coords && coords.length >= 2 ? coords[0] : null;
+
     places.push({
       title,
       address: loc?.address?.trim() || "",
-      url: props?.google_maps_url?.trim() || "",
-      lat: coords && coords.length >= 2 ? coords[1] : null,
-      lng: coords && coords.length >= 2 ? coords[0] : null,
+      url: buildMapsUrl(lat, lng),
+      lat,
+      lng,
       date: props?.date || null,
     });
   }

@@ -93,7 +93,7 @@ export function generatePrintHTML(places: Place[]): string {
       <td style="padding:4px 0;vertical-align:top;">
         <strong>${escapeHtml(p.title)}</strong>
         ${p.address ? ` — ${escapeHtml(p.address)}` : ""}
-        ${p.url ? `<br/><span style="font-size:0.75rem;color:#666;">${escapeHtml(p.url)}</span>` : ""}
+        ${p.url ? `<br/><a href="${escapeHtml(p.url)}" style="font-size:0.75rem;color:#2563eb;text-decoration:none;">${escapeHtml(p.url)}</a>` : ""}
       </td>
     </tr>`
     )
