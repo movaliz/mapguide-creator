@@ -14,7 +14,7 @@ function getCountryCode(address: string): string | null {
   const map: Record<string, string> = {
     germany: "DE", deutschland: "DE", france: "FR", spain: "ES", españa: "ES",
     italy: "IT", italia: "IT", turkey: "TR", türkiye: "TR", "united states": "US",
-    usa: "US", "united kingdom": "UK", uk: "UK", netherlands: "NL", portugal: "PT",
+    usa: "US", "united kingdom": "GB", uk: "GB", netherlands: "NL", portugal: "PT",
     greece: "GR", japan: "JP", australia: "AU", canada: "CA", mexico: "MX",
     brazil: "BR", austria: "AT", switzerland: "CH", belgium: "BE", sweden: "SE",
     norway: "NO", denmark: "DK", finland: "FI", poland: "PL", "czech republic": "CZ",
@@ -23,11 +23,21 @@ function getCountryCode(address: string): string | null {
     vietnam: "VN", indonesia: "ID", india: "IN", china: "CN", singapore: "SG",
     "new zealand": "NZ", argentina: "AR", colombia: "CO", chile: "CL", peru: "PE",
     morocco: "MA", egypt: "EG", "south africa": "ZA", israel: "IL", "united arab emirates": "AE",
+    "türkei": "TR", russia: "RU", ukraine: "UA", georgia: "GE",
   };
   const lower = last.toLowerCase();
   if (map[lower]) return map[lower];
   if (last.length === 2 && last === last.toUpperCase()) return last;
   return null;
+}
+
+/** Convert a 2-letter country code to flag emoji */
+function countryFlag(code: string): string {
+  return code
+    .toUpperCase()
+    .split("")
+    .map((c) => String.fromCodePoint(0x1f1e6 + c.charCodeAt(0) - 65))
+    .join("");
 }
 
 function formatDate(dateStr: string | null): string | null {
@@ -81,8 +91,8 @@ const PlaceCardGrid = ({ places, maxVisible }: PlaceCardGridProps) => {
                 </div>
               </div>
               {country && (
-                <span className="absolute top-3 right-3 text-[11px] font-semibold tracking-wide bg-card/90 backdrop-blur-sm text-foreground px-2.5 py-1 rounded-full shadow-soft">
-                  {country}
+                <span className="absolute top-3 right-3 text-xl leading-none bg-card/90 backdrop-blur-sm px-2 py-1 rounded-full shadow-soft">
+                  {countryFlag(country)}
                 </span>
               )}
             </div>

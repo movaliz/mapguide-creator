@@ -40,7 +40,7 @@ export function generatePdfHTML(places: Place[], watermark: boolean): string {
         <div style="display:flex;align-items:flex-start;gap:8px;">
           <span style="font-size:1.1rem;line-height:1;">📍</span>
           <div>
-            <strong style="font-family:'DM Serif Display',Georgia,serif;font-size:1.1rem;color:#1a1a2e;">${escapeHtml(p.title)}</strong>
+            <strong style="font-family:'DM Sans','Inter',sans-serif;font-size:1.1rem;font-weight:700;color:#1a1a2e;">${escapeHtml(p.title)}</strong>
             ${p.address ? `<div style="color:#6b7280;font-size:0.85rem;margin-top:3px;">${escapeHtml(p.address)}</div>` : ""}
             <div style="display:flex;gap:16px;margin-top:4px;font-size:0.8rem;color:#9ca3af;">
               ${country ? `<span>${escapeHtml(country)}</span>` : ""}
@@ -58,7 +58,7 @@ export function generatePdfHTML(places: Place[], watermark: boolean): string {
 <html><head>
 <meta charset="utf-8"/>
 <title>My Saved Places — exportmymap.com</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: 'DM Sans', sans-serif; max-width: 700px; margin: 40px auto; color: #1a1a2e; padding: 0 24px; }
@@ -66,7 +66,7 @@ export function generatePdfHTML(places: Place[], watermark: boolean): string {
   tr { border-bottom: 1px solid #f0f0f0; }
   tr:last-child { border-bottom: none; }
   .header { margin-bottom: 32px; padding-bottom: 20px; border-bottom: 2px solid #1a1a2e; }
-  .header h1 { font-family: 'DM Serif Display', Georgia, serif; font-size: 1.75rem; margin-bottom: 4px; }
+  .header h1 { font-family: 'DM Sans', 'Inter', sans-serif; font-size: 1.75rem; font-weight: 700; margin-bottom: 4px; }
   .header p { color: #9ca3af; font-size: 0.85rem; }
   ${watermark ? `.watermark { position: fixed; bottom: 20px; right: 24px; color: #d1d5db; font-size: 0.7rem; }` : ""}
   @media print {
