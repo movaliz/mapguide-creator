@@ -140,6 +140,49 @@ const Index = () => {
         )}
       </section>
 
+      {/* Inline places preview */}
+      {places.length > 0 && (
+        <section ref={placesRef} className="w-full max-w-[1100px] mx-auto px-4 sm:px-6 pb-24">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ type: "spring", duration: 0.5, bounce: 0 }}
+          >
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h2 className="font-display text-2xl text-foreground">Your Saved Places</h2>
+                <p className="text-sm text-muted-foreground mt-1">
+                  {places.length} places found
+                </p>
+              </div>
+              <div className="flex items-center gap-3">
+                <FormatToggle active={viewFormat} onChange={handleFormatChange} />
+                <button
+                  onClick={handleReset}
+                  className="text-label text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  New file
+                </button>
+              </div>
+            </div>
+
+            {!isPaid && places.length > FREE_LIMIT && (
+              <div className="mb-4 py-3 px-4 rounded-xl bg-muted/50 border border-border text-sm text-muted-foreground text-center">
+                Showing {FREE_LIMIT} of {places.length} places.{" "}
+                <a href="#pricing" className="text-accent font-medium hover:underline">
+                  Upgrade to export your full list.
+                </a>
+              </div>
+            )}
+
+            <PlaceCardGrid
+              places={places}
+              maxVisible={isPaid ? undefined : FREE_LIMIT}
+            />
+          </motion.div>
+        </section>
+      )}
+
       <PreviewMockup />
 
       <PricingSection onSelectPlan={() => setPricingOpen(true)} />
