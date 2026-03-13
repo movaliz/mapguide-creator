@@ -12,7 +12,7 @@ import SocialProof from "@/components/SocialProof";
 import FAQ from "@/components/FAQ";
 import FinalCTA from "@/components/FinalCTA";
 import HeroSection from "@/components/HeroSection";
-import { parseGoogleMapsCSV, type Place } from "@/lib/csv-parser";
+import { parseGoogleMapsJSON, type Place } from "@/lib/json-parser";
 import { downloadPDF, printPlaces } from "@/lib/pdf-export";
 import MapPin from "@/components/MapPin";
 
