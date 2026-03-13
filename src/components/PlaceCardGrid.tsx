@@ -141,14 +141,6 @@ const PlaceCardGrid = ({ places, maxVisible }: PlaceCardGridProps) => {
         })}
       </motion.div>
 
-      {hasMore && (
-        <div className="text-center py-8 text-sm text-muted-foreground">
-          Showing {maxVisible} of {places.length} places.{" "}
-          <a href="#pricing" className="text-accent hover:underline">
-            Upgrade to export your full list.
-          </a>
-        </div>
-      )}
     </div>
   );
 };
