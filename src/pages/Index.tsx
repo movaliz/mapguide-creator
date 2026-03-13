@@ -80,54 +80,12 @@ const Index = () => {
     uploadRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // Places list view
-  if (places.length > 0) {
-    return (
-      <div className="min-h-screen flex flex-col">
-        <AppHeader
-          hasPlaces
-          onExportPDF={() => handleExport("pdf")}
-          onPrint={() => handleExport("print")}
-          onShare={() => handleExport("share")}
-        />
-        <main className="flex-1 w-full max-w-[1100px] mx-auto px-4 sm:px-6">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ type: "spring", duration: 0.4, bounce: 0 }}
-          >
-            <div className="flex items-center justify-between py-6">
-              <div>
-                <h2 className="font-display text-2xl text-foreground">Your Saved Places</h2>
-                <p className="text-sm text-muted-foreground mt-1">
-                  {places.length} places found
-                </p>
-              </div>
-              <button
-                onClick={handleReset}
-                className="text-label text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Upload new file
-              </button>
-            </div>
+  const placesRef = useRef<HTMLDivElement>(null);
 
-            <div className="mb-6">
-              <FormatToggle active={viewFormat} onChange={handleFormatChange} />
-            </div>
-
-            <PlaceCardGrid
-              places={places}
-              maxVisible={isPaid ? undefined : FREE_LIMIT}
-            />
-          </motion.div>
-        </main>
-        <footer className="py-8 text-center text-xs text-muted-foreground/60">
-          ExportPlaces — Share your saved places with anyone
-        </footer>
-        <PricingModal open={pricingOpen} onClose={() => setPricingOpen(false)} />
-      </div>
-    );
-  }
+  // Scroll to places preview after parsing
+  const scrollToPlaces = () => {
+    setTimeout(() => placesRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
+  };
 
   // Landing page
   return (
