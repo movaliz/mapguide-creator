@@ -4,16 +4,18 @@ export interface Place {
   url: string;
   lat: number | null;
   lng: number | null;
+  date: string | null;
 }
 
 interface TakeoutFeature {
   geometry?: { coordinates?: number[] };
   properties?: {
-    Title?: string;
-    "Google Maps URL"?: string;
-    Location?: {
-      Address?: string;
-      "Country Code"?: string;
+    date?: string;
+    google_maps_url?: string;
+    location?: {
+      name?: string;
+      address?: string;
+      country_code?: string;
     };
   };
 }
@@ -38,16 +40,18 @@ export function parseGoogleMapsJSON(text: string): Place[] {
   const places: Place[] = [];
   for (const feature of data.features) {
     const props = feature.properties;
-    const title = props?.Title?.trim();
+    const loc = props?.location;
+    const title = loc?.name?.trim();
     if (!title) continue;
 
     const coords = feature.geometry?.coordinates;
     places.push({
       title,
-      address: props?.Location?.Address?.trim() || "",
-      url: props?.["Google Maps URL"]?.trim() || "",
+      address: loc?.address?.trim() || "",
+      url: props?.google_maps_url?.trim() || "",
       lat: coords && coords.length >= 2 ? coords[1] : null,
       lng: coords && coords.length >= 2 ? coords[0] : null,
+      date: props?.date || null,
     });
   }
   return places;
