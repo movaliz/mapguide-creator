@@ -12,7 +12,7 @@ import SocialProof from "@/components/SocialProof";
 import FAQ from "@/components/FAQ";
 import FinalCTA from "@/components/FinalCTA";
 import HeroSection from "@/components/HeroSection";
-import { parseGoogleMapsCSV, type Place } from "@/lib/csv-parser";
+import { parseGoogleMapsJSON, type Place } from "@/lib/json-parser";
 import { downloadPDF, printPlaces } from "@/lib/pdf-export";
 import MapPin from "@/components/MapPin";
 
@@ -30,7 +30,7 @@ const Index = () => {
     setLoading(true);
     try {
       const text = await file.text();
-      const parsed = parseGoogleMapsCSV(text);
+      const parsed = parseGoogleMapsJSON(text);
       if (parsed.length === 0) {
         toast.error("No places found in this file.");
         return;
@@ -165,7 +165,7 @@ const Index = () => {
           className="text-center mb-10"
         >
           <h2 className="font-display text-3xl sm:text-4xl text-foreground mb-3">
-            Ready? Upload your CSV.
+            Ready? Upload your Saved Places.json
           </h2>
           <p className="text-muted-foreground text-lg">
             It takes less than 30 seconds. Your data never leaves your browser.

@@ -23,7 +23,7 @@ const FileDropzone = ({ onFileSelect }: FileDropzoneProps) => {
       e.preventDefault();
       setIsDragging(false);
       const file = e.dataTransfer.files[0];
-      if (file && file.name.endsWith(".csv")) {
+      if (file && file.name.endsWith(".json")) {
         onFileSelect(file);
       }
     },
@@ -33,7 +33,7 @@ const FileDropzone = ({ onFileSelect }: FileDropzoneProps) => {
   const handleClick = () => {
     const input = document.createElement("input");
     input.type = "file";
-    input.accept = ".csv";
+    input.accept = ".json";
     input.onchange = (e) => {
       const file = (e.target as HTMLInputElement).files?.[0];
       if (file) onFileSelect(file);
@@ -59,7 +59,7 @@ const FileDropzone = ({ onFileSelect }: FileDropzoneProps) => {
         <Upload className="h-6 w-6 text-primary" />
       </div>
       <div className="text-center">
-        <p className="text-label text-primary">Upload Saved places.csv</p>
+        <p className="text-label text-primary">Upload Saved Places.json</p>
         <p className="mt-2 text-sm text-muted-foreground">
           Drag & drop or click to browse
         </p>

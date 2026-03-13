@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import type { Place } from "@/lib/csv-parser";
+import type { Place } from "@/lib/json-parser";
 import MapPin from "./MapPin";
 
 interface PlaceListProps {
@@ -44,8 +44,8 @@ const PlaceList = ({ places, maxVisible }: PlaceListProps) => {
               <span className="font-display text-[1.25rem] leading-tight text-foreground">
                 {place.title}
               </span>
-              {place.note && (
-                <p className="text-sm text-muted-foreground mt-0.5 truncate">{place.note}</p>
+              {place.address && (
+                <p className="text-sm text-muted-foreground mt-0.5 truncate">{place.address}</p>
               )}
             </div>
             <MapPin className="text-primary/40 group-hover:text-primary shrink-0 transition-colors" />
