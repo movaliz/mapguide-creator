@@ -26,7 +26,6 @@ const Index = () => {
   const [pricingOpen, setPricingOpen] = useState(false);
   const [viewFormat, setViewFormat] = useState<ViewFormat>("share");
   const uploadRef = useRef<HTMLDivElement>(null);
-  const uploadRef = useRef<HTMLDivElement>(null);
 
   const isPaid = false;
 
