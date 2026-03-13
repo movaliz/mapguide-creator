@@ -55,7 +55,7 @@ const PlaceList = ({ places, maxVisible }: PlaceListProps) => {
       {hasMore && (
         <div className="text-center py-6 text-sm text-muted-foreground border-t border-border">
           Showing {maxVisible} of {places.length} places.{" "}
-          <span className="text-accent">Upgrade to export your full list.</span>
+          <a href="#pricing" className="text-accent hover:underline">Upgrade to export your full list.</a>
         </div>
       )}
     </div>
