@@ -91,8 +91,8 @@ const PlaceCardGrid = ({ places, maxVisible }: PlaceCardGridProps) => {
                 </div>
               </div>
               {country && (
-                <span className="absolute top-3 right-3 text-[11px] font-semibold tracking-wide bg-card/90 backdrop-blur-sm text-foreground px-2.5 py-1 rounded-full shadow-soft">
-                  {country}
+                <span className="absolute top-3 right-3 text-xl leading-none bg-card/90 backdrop-blur-sm px-2 py-1 rounded-full shadow-soft">
+                  {countryFlag(country)}
                 </span>
               )}
             </div>
