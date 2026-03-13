@@ -30,7 +30,7 @@ const Index = () => {
     setLoading(true);
     try {
       const text = await file.text();
-      const parsed = parseGoogleMapsCSV(text);
+      const parsed = parseGoogleMapsJSON(text);
       if (parsed.length === 0) {
         toast.error("No places found in this file.");
         return;
