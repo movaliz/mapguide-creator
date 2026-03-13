@@ -54,7 +54,6 @@ const Index = () => {
     const watermark = !isPaid;
 
     if (type === "share") {
-      // TODO: implement shareable link generation
       toast.info("Shareable links coming soon!");
       return;
     }
@@ -62,7 +61,17 @@ const Index = () => {
     if (type === "pdf") {
       downloadPDF(exportPlaces, watermark);
     } else if (type === "print") {
-      printPlaces(exportPlaces, watermark);
+      printPlaces(exportPlaces);
+    }
+  };
+
+  const handleFormatChange = (format: ViewFormat) => {
+    if (format === "pdf") {
+      handleExport("pdf");
+    } else if (format === "print") {
+      handleExport("print");
+    } else {
+      setViewFormat("share");
     }
   };
 
