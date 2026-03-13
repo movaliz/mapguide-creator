@@ -40,7 +40,7 @@ export function generatePdfHTML(places: Place[], watermark: boolean): string {
         <div style="display:flex;align-items:flex-start;gap:8px;">
           <span style="font-size:1.1rem;line-height:1;">📍</span>
           <div>
-            <strong style="font-family:'DM Serif Display',Georgia,serif;font-size:1.1rem;color:#1a1a2e;">${escapeHtml(p.title)}</strong>
+            <strong style="font-family:'DM Sans','Inter',sans-serif;font-size:1.1rem;font-weight:700;color:#1a1a2e;">${escapeHtml(p.title)}</strong>
             ${p.address ? `<div style="color:#6b7280;font-size:0.85rem;margin-top:3px;">${escapeHtml(p.address)}</div>` : ""}
             <div style="display:flex;gap:16px;margin-top:4px;font-size:0.8rem;color:#9ca3af;">
               ${country ? `<span>${escapeHtml(country)}</span>` : ""}
