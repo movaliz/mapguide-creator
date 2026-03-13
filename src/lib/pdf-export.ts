@@ -80,7 +80,7 @@ export function generatePdfHTML(places: Place[], watermark: boolean): string {
   <p>${places.length} places · Exported ${now}</p>
 </div>
 <table>${rows}</table>
-${watermark ? '<div class="watermark">Generated with ExportPlaces</div>' : ""}
+${watermark ? '<div class="watermark">Generated with exportmymap.com</div>' : ""}
 </body></html>`;
 }
 
