@@ -26,7 +26,7 @@
     --muted: 40 8% 93%;
     --muted-foreground: 0 0% 45%;
 
-    --accent: 15 90% 55%;
+    --accent: 142 72% 29%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
@@ -54,7 +54,7 @@
     --sidebar-foreground: 0 0% 10%;
     --sidebar-primary: 0 0% 10%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 15 90% 55%;
+    --sidebar-accent: 142 72% 29%;
     --sidebar-accent-foreground: 0 0% 100%;
     --sidebar-border: 40 10% 90%;
     --sidebar-ring: 0 0% 10%;
@@ -132,7 +132,7 @@
     bottom: -4px;
     width: 108%;
     height: 12px;
-    background: hsl(15 90% 55% / 0.25);
+    background: hsl(142 72% 29% / 0.25);
     border-radius: 50%;
     transform: rotate(-1deg);
     z-index: -1;

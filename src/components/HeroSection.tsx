@@ -8,8 +8,8 @@ interface HeroSectionProps {
 
 const HeroSection = ({ onCTA }: HeroSectionProps) => (
   <section className="relative w-full">
-    <div className="relative max-w-[1100px] mx-auto px-4 sm:px-6 pt-24 pb-20 sm:pt-36 sm:pb-32">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+    <div className="relative max-w-[1100px] mx-auto px-4 sm:px-6 pt-24 pb-16 sm:pt-32 sm:pb-24">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center">
         {/* Left: Text */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -17,43 +17,35 @@ const HeroSection = ({ onCTA }: HeroSectionProps) => (
           transition={{ type: "spring", duration: 0.7, bounce: 0 }}
           className="text-left"
         >
-          <h1 className="text-hero font-display text-foreground mb-8">
+          {/* Announcement badge */}
+          <a
+            href="#how-it-works"
+            className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-white mb-6 hover:opacity-90 transition-opacity"
+            style={{ background: "#16a34a" }}
+          >
+            <Puzzle className="w-4 h-4" />
+            Also available as Chrome Extension
+            <ArrowRight className="w-3.5 h-3.5" />
+          </a>
+
+          <h1 className="font-display text-4xl sm:text-5xl lg:text-[3.4rem] text-foreground mb-6 leading-[1.1]">
             Share your Google Maps{" "}
             <span className="accent-underline">saved places</span>{" "}
             with anyone
           </h1>
-          <p className="text-lg sm:text-xl text-muted-foreground mb-10 max-w-lg leading-relaxed">
+          <p className="text-lg text-muted-foreground mb-8 max-w-md leading-relaxed">
             Generate a beautiful shareable link or PDF from your saved places — in seconds.
             No more screenshots, no more copy-pasting.
           </p>
-          <div className="flex flex-col sm:flex-row items-start gap-4 mb-5">
-            <motion.button
-              onClick={onCTA}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.97 }}
-              className="rounded-full px-8 py-4 text-label bg-foreground text-background transition-all flex items-center gap-2 shadow-elevated hover:opacity-90"
-            >
-              Get Started Free
-              <ArrowRight className="w-4 h-4" />
-            </motion.button>
-            <motion.a
-              href="#how-it-works"
-              whileHover={{ scale: 1.02 }}
-              className="rounded-full px-8 py-4 text-label text-muted-foreground hover:text-foreground border border-border transition-colors"
-            >
-              See How It Works
-            </motion.a>
-          </div>
-          <a
-            href="#how-it-works"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors group"
+          <motion.button
+            onClick={onCTA}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.97 }}
+            className="rounded-full px-8 py-4 text-label bg-foreground text-background transition-all flex items-center gap-2 shadow-elevated hover:opacity-90"
           >
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-accent/10 text-accent px-3 py-1 text-xs font-medium">
-              <Puzzle className="w-3 h-3" />
-              Also available as Chrome Extension
-            </span>
-            <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
-          </a>
+            Get Started Free
+            <ArrowRight className="w-4 h-4" />
+          </motion.button>
         </motion.div>
 
         {/* Right: Illustration */}
