@@ -1,9 +1,6 @@
+import jsPDF from "jspdf";
 import type { Place } from "./json-parser";
 import { getCountryCode, countryFlag } from "./country-utils";
-
-function escapeHtml(str: string) {
-  return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-}
 
 function formatDate(dateStr: string | null): string {
   if (!dateStr) return "";
@@ -18,69 +15,113 @@ function formatDate(dateStr: string | null): string {
   }
 }
 
-export function generatePdfHTML(places: Place[], watermark: boolean): string {
+export function downloadPDF(places: Place[], _watermark: boolean) {
+  const doc = new jsPDF({ unit: "mm", format: "a4" });
+  const pageW = doc.internal.pageSize.getWidth();
+  const pageH = doc.internal.pageSize.getHeight();
+  const marginL = 18;
+  const marginR = 18;
+  const contentW = pageW - marginL - marginR;
+  let y = 20;
+
   const now = new Intl.DateTimeFormat("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
   }).format(new Date());
 
-  const rows = places
-    .map((p, i) => {
-      const date = formatDate(p.date);
-      const cc = getCountryCode(p.address);
-      const flag = cc ? countryFlag(cc) : "📍";
-      return `
-    <tr>
-      <td style="padding:14px 16px;color:#9ca3af;text-align:right;width:36px;font-variant-numeric:tabular-nums;vertical-align:top;font-size:0.875rem;">${i + 1}</td>
-      <td style="padding:14px 16px;vertical-align:top;">
-        <div style="display:flex;align-items:flex-start;gap:8px;">
-          <span style="font-size:1.1rem;line-height:1;">${flag}</span>
-          <div>
-            <strong style="font-family:'DM Sans','Inter',sans-serif;font-size:1.1rem;font-weight:700;color:#1a1a2e;">${escapeHtml(p.title)}</strong>
-            ${p.address ? `<div style="color:#6b7280;font-size:0.85rem;margin-top:3px;">${escapeHtml(p.address)}</div>` : ""}
-            <div style="display:flex;gap:16px;margin-top:4px;font-size:0.8rem;color:#9ca3af;">
-              ${date ? `<span>Saved ${date}</span>` : ""}
-            </div>
-            ${p.url ? `<div style="margin-top:4px;font-size:0.75rem;word-break:break-all;"><a href="${escapeHtml(p.url)}" style="color:#2563eb;text-decoration:none;">${escapeHtml(p.url)}</a></div>` : ""}
-          </div>
-        </div>
-      </td>
-    </tr>`;
-    })
-    .join("");
+  // Title
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(20);
+  doc.text("My Saved Places", marginL, y);
+  y += 7;
 
-  return `<!DOCTYPE html>
-<html><head>
-<meta charset="utf-8"/>
-<title>My Saved Places — exportmymap.com</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'DM Sans', sans-serif; max-width: 700px; margin: 40px auto; color: #1a1a2e; padding: 0 24px; }
-  table { width: 100%; border-collapse: collapse; }
-  tr { border-bottom: 1px solid #f0f0f0; }
-  tr:last-child { border-bottom: none; }
-  .header { margin-bottom: 32px; padding-bottom: 20px; border-bottom: 2px solid #1a1a2e; }
-  .header h1 { font-family: 'DM Sans', 'Inter', sans-serif; font-size: 1.75rem; font-weight: 700; margin-bottom: 4px; }
-  .header p { color: #9ca3af; font-size: 0.85rem; }
-  ${watermark ? `.watermark { position: fixed; bottom: 20px; right: 24px; color: #d1d5db; font-size: 0.7rem; }` : ""}
-  @media print {
-    body { margin: 0; padding: 20px; }
-    tr { page-break-inside: avoid; }
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(9);
+  doc.setTextColor(120, 120, 120);
+  doc.text(`${places.length} places · Exported ${now}`, marginL, y);
+  y += 4;
+
+  // Divider
+  doc.setDrawColor(200, 200, 200);
+  doc.line(marginL, y, pageW - marginR, y);
+  y += 8;
+
+  doc.setTextColor(30, 30, 30);
+
+  places.forEach((p, i) => {
+    // Check if we need a new page
+    if (y > pageH - 25) {
+      doc.addPage();
+      y = 20;
+    }
+
+    const num = `${i + 1}.`;
+    const date = formatDate(p.date);
+    const cc = getCountryCode(p.address);
+    const countryLabel = cc ? ` [${cc}]` : "";
+
+    // Number
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.setTextColor(150, 150, 150);
+    doc.text(num, marginL, y);
+
+    const textX = marginL + 10;
+
+    // Title
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11);
+    doc.setTextColor(26, 26, 46);
+    const titleLines = doc.splitTextToSize(p.title + countryLabel, contentW - 10);
+    doc.text(titleLines, textX, y);
+    y += titleLines.length * 5;
+
+    // Address
+    if (p.address) {
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(9);
+      doc.setTextColor(100, 100, 100);
+      const addrLines = doc.splitTextToSize(p.address, contentW - 10);
+      doc.text(addrLines, textX, y);
+      y += addrLines.length * 4;
+    }
+
+    // Date
+    if (date) {
+      doc.setFontSize(8);
+      doc.setTextColor(150, 150, 150);
+      doc.text(`Saved ${date}`, textX, y);
+      y += 3.5;
+    }
+
+    // URL
+    if (p.url) {
+      doc.setFontSize(7.5);
+      doc.setTextColor(37, 99, 235);
+      const urlLines = doc.splitTextToSize(p.url, contentW - 10);
+      doc.textWithLink(urlLines[0], textX, y, { url: p.url });
+      y += 4;
+    }
+
+    y += 5; // spacing between entries
+  });
+
+  // Watermark
+  if (_watermark) {
+    const pageCount = doc.getNumberOfPages();
+    for (let pg = 1; pg <= pageCount; pg++) {
+      doc.setPage(pg);
+      doc.setFontSize(7);
+      doc.setTextColor(200, 200, 200);
+      doc.text("Generated with exportmymap.com", pageW - marginR, pageH - 10, { align: "right" });
+    }
   }
-</style>
-</head><body>
-<div class="header">
-  <h1>My Saved Places</h1>
-  <p>${places.length} places · Exported ${now}</p>
-</div>
-<table>${rows}</table>
-${watermark ? '<div class="watermark">Generated with exportmymap.com</div>' : ""}
-</body></html>`;
+
+  doc.save("exportmymap-places.pdf");
 }
 
-export function generatePrintHTML(places: Place[]): string {
+export function printPlaces(places: Place[]) {
   const rows = places
     .map(
       (p, i) => `
@@ -95,7 +136,7 @@ export function generatePrintHTML(places: Place[]): string {
     )
     .join("");
 
-  return `<!DOCTYPE html>
+  const html = `<!DOCTYPE html>
 <html><head>
 <meta charset="utf-8"/>
 <title>Saved Places</title>
@@ -110,10 +151,7 @@ export function generatePrintHTML(places: Place[]): string {
 </head><body>
 <table>${rows}</table>
 </body></html>`;
-}
 
-export function downloadPDF(places: Place[], watermark: boolean) {
-  const html = generatePdfHTML(places, watermark);
   const win = window.open("", "_blank");
   if (win) {
     win.document.write(html);
@@ -123,13 +161,6 @@ export function downloadPDF(places: Place[], watermark: boolean) {
   }
 }
 
-export function printPlaces(places: Place[]) {
-  const html = generatePrintHTML(places);
-  const win = window.open("", "_blank");
-  if (win) {
-    win.document.write(html);
-    win.document.close();
-    win.focus();
-    setTimeout(() => win.print(), 500);
-  }
+function escapeHtml(str: string) {
+  return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
