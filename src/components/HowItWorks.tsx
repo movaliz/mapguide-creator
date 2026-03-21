@@ -1,6 +1,7 @@
 import { useState, useCallback, useRef } from "react";
 import { motion } from "framer-motion";
-import { Chrome, MousePointerClick, Share2, Download, Upload, FileText, Star } from "lucide-react";
+import { MousePointerClick, Share2, Download, Upload, FileText, Star } from "lucide-react";
+import chromeIcon from "@/assets/chrome-web-store.png";
 import { toast } from "sonner";
 import FileDropzone from "@/components/FileDropzone";
 import PlaceCardGrid from "@/components/PlaceCardGrid";
