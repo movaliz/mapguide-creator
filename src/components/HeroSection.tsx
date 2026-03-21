@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Puzzle } from "lucide-react";
 import heroIllustration from "@/assets/hero-illustration.jpg";
 
 interface HeroSectionProps {
@@ -9,24 +9,24 @@ interface HeroSectionProps {
 const HeroSection = ({ onCTA }: HeroSectionProps) => (
   <section className="relative w-full">
     <div className="relative max-w-[1100px] mx-auto px-4 sm:px-6 pt-24 pb-20 sm:pt-36 sm:pb-32">
-      <div className="flex flex-col lg:flex-row items-start gap-12 lg:gap-16">
-        {/* Left: Text — left-aligned */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        {/* Left: Text */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ type: "spring", duration: 0.7, bounce: 0 }}
-          className="flex-1 text-left"
+          className="text-left"
         >
           <h1 className="text-hero font-display text-foreground mb-8">
             Share your Google Maps{" "}
             <span className="accent-underline">saved places</span>{" "}
             with anyone
           </h1>
-          <p className="text-lg sm:text-xl text-muted-foreground mb-12 max-w-lg leading-relaxed">
+          <p className="text-lg sm:text-xl text-muted-foreground mb-10 max-w-lg leading-relaxed">
             Generate a beautiful shareable link or PDF from your saved places — in seconds.
             No more screenshots, no more copy-pasting.
           </p>
-          <div className="flex flex-col sm:flex-row items-start gap-4">
+          <div className="flex flex-col sm:flex-row items-start gap-4 mb-5">
             <motion.button
               onClick={onCTA}
               whileHover={{ scale: 1.02 }}
@@ -44,21 +44,30 @@ const HeroSection = ({ onCTA }: HeroSectionProps) => (
               See How It Works
             </motion.a>
           </div>
+          <a
+            href="#how-it-works"
+            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors group"
+          >
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-accent/10 text-accent px-3 py-1 text-xs font-medium">
+              <Puzzle className="w-3 h-3" />
+              Also available as Chrome Extension
+            </span>
+            <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+          </a>
         </motion.div>
 
-        {/* Right: Illustration with realistic styling */}
+        {/* Right: Illustration */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95, rotate: 1 }}
-          animate={{ opacity: 1, scale: 1, rotate: 2 }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2, type: "spring", duration: 0.8, bounce: 0 }}
-          className="flex-1 max-w-lg lg:max-w-xl"
         >
           <div className="relative">
-            <div className="absolute -inset-4 bg-accent/10 rounded-3xl blur-2xl -z-10" />
+            <div className="absolute -inset-4 bg-accent/5 rounded-3xl blur-2xl -z-10" />
             <img
               src={heroIllustration}
               alt="People sharing travel places via exportmymap.com — PDF guides, shareable links, and favorite spots"
-              className="w-full rounded-2xl shadow-elevated"
+              className="w-full rounded-2xl shadow-elevated mix-blend-multiply"
               style={{ transform: "perspective(1000px) rotateY(-2deg)" }}
             />
           </div>

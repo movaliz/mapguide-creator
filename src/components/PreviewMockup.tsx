@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
-import shareMockup from "@/assets/share-mockup.png";
-import guideMockup from "@/assets/guide-mockup.png";
+import { ExternalLink } from "lucide-react";
 
 const PreviewMockup = () => (
   <section className="w-full max-w-[1100px] mx-auto px-4 sm:px-6 py-32">
@@ -9,7 +8,7 @@ const PreviewMockup = () => (
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ type: "spring", duration: 0.6, bounce: 0 }}
-      className="mb-20"
+      className="mb-16"
     >
       <p className="text-sm font-semibold text-accent uppercase tracking-widest mb-4">Output</p>
       <h2 className="font-display text-4xl sm:text-5xl text-foreground max-w-2xl">
@@ -20,80 +19,82 @@ const PreviewMockup = () => (
       </p>
     </motion.div>
 
-    {/* Shareable Link — Asymmetric layout */}
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ type: "spring", duration: 0.6, bounce: 0 }}
-      className="relative mb-16"
-    >
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
-        <div className="lg:col-span-2">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-accent text-accent-foreground px-3 py-1 text-xs font-semibold tracking-wider mb-4">
-            Most popular
-          </span>
-          <h3 className="font-display text-3xl text-foreground mb-3">Shareable Link</h3>
-          <p className="text-muted-foreground max-w-sm">
-            A beautiful public page anyone can open — no app needed. Share via text, email, or social.
-          </p>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* Shareable Link */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ type: "spring", duration: 0.5, bounce: 0 }}
+        className="rounded-2xl border border-border bg-card p-6"
+      >
+        <p className="text-xs font-semibold text-accent uppercase tracking-widest mb-4">Shareable Link</p>
+        <div className="space-y-3">
+          {[
+            { name: "Café Lomi", addr: "3 Rue Marcadet, Paris" },
+            { name: "Shakespeare & Co", addr: "37 Rue de la Bûcherie" },
+          ].map((p, i) => (
+            <div key={i} className="rounded-xl border border-border bg-surface p-3">
+              <p className="text-sm font-semibold text-foreground">{p.name}</p>
+              <p className="text-xs text-muted-foreground mb-2">{p.addr}</p>
+              <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-accent bg-accent/10 rounded-full px-2 py-0.5">
+                <ExternalLink className="w-2.5 h-2.5" />
+                Open in Maps
+              </span>
+            </div>
+          ))}
         </div>
-        <div className="lg:col-span-3">
-          <div className="relative">
-            <div className="absolute -inset-4 bg-accent/5 rounded-3xl blur-2xl -z-10" />
-            <img
-              src={shareMockup}
-              alt="Phone and laptop showing a beautiful shareable travel guide page with saved places"
-              className="w-full rounded-2xl shadow-elevated"
-              style={{ transform: "perspective(1000px) rotateY(-2deg) rotateX(1deg)" }}
-              loading="lazy"
-            />
-          </div>
-        </div>
-      </div>
-    </motion.div>
+      </motion.div>
 
-    {/* PDF + Print — offset grid */}
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {/* PDF Guide */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ delay: 0.1, type: "spring", duration: 0.5, bounce: 0 }}
-        className="rounded-2xl border border-border bg-card p-8 hover:shadow-elevated transition-all duration-300"
+        className="rounded-2xl border border-border bg-card p-6"
       >
-        <h3 className="font-display text-2xl text-foreground mb-2">PDF Guide</h3>
-        <p className="text-sm text-muted-foreground mb-6">
-          Download a beautiful travel guide with elegant typography.
-        </p>
-        <div className="relative">
-          <div className="absolute -inset-2 bg-foreground/[0.02] rounded-xl blur-lg -z-10" />
-          <img
-            src={guideMockup}
-            alt="Example PDF guide showing a list of saved places"
-            className="w-full rounded-xl shadow-soft border border-border"
-            style={{ transform: "perspective(600px) rotateY(1deg)" }}
-            loading="lazy"
-          />
+        <p className="text-xs font-semibold text-accent uppercase tracking-widest mb-4">PDF Guide</p>
+        <div className="rounded-xl border border-border bg-surface p-4 space-y-3">
+          <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold">My Paris Guide</p>
+          <div className="w-8 h-px bg-border" />
+          {[
+            { n: 1, name: "Café Lomi", cat: "Coffee" },
+            { n: 2, name: "Shakespeare & Co", cat: "Bookstore" },
+            { n: 3, name: "Le Marais", cat: "District" },
+            { n: 4, name: "Musée d'Orsay", cat: "Museum" },
+          ].map((p) => (
+            <div key={p.n} className="flex items-start gap-2">
+              <span className="text-xs font-bold text-accent mt-0.5">{p.n}.</span>
+              <div>
+                <p className="text-sm font-semibold text-foreground leading-tight">{p.name}</p>
+                <p className="text-[10px] text-muted-foreground">{p.cat}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </motion.div>
 
+      {/* Print View */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ delay: 0.2, type: "spring", duration: 0.5, bounce: 0 }}
-        className="rounded-2xl border border-border bg-card p-8 hover:shadow-elevated transition-all duration-300 md:mt-12"
+        className="rounded-2xl border border-border bg-card p-6"
       >
-        <h3 className="font-display text-2xl text-foreground mb-2">Print View</h3>
-        <p className="text-sm text-muted-foreground mb-6">
-          A clean, print-optimized layout. Hit print and take it anywhere.
-        </p>
-        <div className="rounded-xl border border-border bg-surface p-6 space-y-3">
-          {["Café Lomi — 3 Rue Marcadet, Paris", "Shakespeare & Co — 37 Rue de la Bûcherie", "Le Marais — Historic District, Paris", "Musée d'Orsay — 1 Rue de la Légion d'Honneur"].map((place, i) => (
-            <div key={i} className="flex items-center gap-3 text-sm text-foreground">
-              <span className="w-6 h-6 rounded-full bg-foreground text-background text-xs font-bold flex items-center justify-center flex-shrink-0">{i + 1}</span>
-              {place}
+        <p className="text-xs font-semibold text-accent uppercase tracking-widest mb-4">Print View</p>
+        <div className="rounded-xl border border-border bg-white p-4 space-y-2.5 font-mono">
+          {[
+            "Café Lomi — 3 Rue Marcadet",
+            "Shakespeare & Co — 37 Rue de la Bûcherie",
+            "Le Marais — Historic District",
+            "Musée d'Orsay — 1 Rue de la Légion",
+            "Jardin du Luxembourg — 6th Arr.",
+          ].map((place, i) => (
+            <div key={i} className="flex items-center gap-2 text-xs text-foreground">
+              <span className="font-bold w-4 text-right">{i + 1}.</span>
+              <span>{place}</span>
             </div>
           ))}
         </div>
