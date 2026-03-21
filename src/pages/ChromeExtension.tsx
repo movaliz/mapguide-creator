@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { ArrowLeft, MapPin, Download, Share2, FileText, Chrome, Zap, Shield, Globe } from "lucide-react";
 import AppHeader from "@/components/AppHeader";
