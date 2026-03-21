@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Puzzle } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import heroIllustration from "@/assets/hero-illustration.jpg";
+import chromeIcon from "@/assets/chrome-web-store.png";
 
 interface HeroSectionProps {
   onCTA: () => void;
