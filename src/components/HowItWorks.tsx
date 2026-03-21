@@ -90,7 +90,7 @@ const HowItWorks = () => {
               <span className="text-xs text-muted-foreground">No download needed</span>
             </div>
             <div className="hidden sm:flex items-center gap-2 text-muted-foreground">
-              <Chrome className="h-5 w-5" />
+              <img src={chromeIcon} alt="Chrome Web Store" className="h-7 w-7" />
               <span className="text-xs font-medium">Chrome Web Store</span>
             </div>
           </div>
