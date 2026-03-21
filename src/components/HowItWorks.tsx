@@ -13,7 +13,7 @@ import { downloadPDF, printPlaces } from "@/lib/pdf-export";
 const FREE_LIMIT = 10;
 
 const extensionSteps = [
-  { icon: Chrome, title: "Install extension", desc: "Add to Chrome in one click." },
+  { icon: null, title: "Install extension", desc: "Add to Chrome in one click." },
   { icon: MousePointerClick, title: "Open Google Maps", desc: "Go to your saved places as usual." },
   { icon: Share2, title: "Click Export", desc: "Get a shareable link instantly." },
 ];
