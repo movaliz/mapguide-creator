@@ -103,7 +103,7 @@ const HowItWorks = () => {
             {extensionSteps.map((step, i) => (
               <div key={step.title} className="flex items-start gap-3">
                 <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-foreground/5 flex items-center justify-center">
-                  <step.icon className="h-4 w-4 text-foreground" />
+                  {step.icon ? <step.icon className="h-4 w-4 text-foreground" /> : <img src={chromeIcon} alt="Chrome" className="h-5 w-5" />}
                 </div>
                 <div>
                   <div className="flex items-center gap-2 mb-0.5">
