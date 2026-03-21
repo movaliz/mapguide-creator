@@ -1,33 +1,28 @@
 import { motion } from "framer-motion";
-import { Users, Star } from "lucide-react";
 
 const SocialProof = () => (
   <motion.div
-    initial={{ opacity: 0 }}
-    whileInView={{ opacity: 1 }}
+    initial={{ opacity: 0, y: 10 }}
+    whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ duration: 0.6 }}
-    className="w-full max-w-[1100px] mx-auto px-4 sm:px-6 py-10"
+    className="w-full max-w-[1100px] mx-auto px-4 sm:px-6 py-16"
   >
-    <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10">
-      <div className="flex items-center gap-2.5 text-muted-foreground">
-        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-          <Users className="h-4 w-4 text-primary" />
-        </div>
-        <span className="text-sm font-body">
-          <span className="text-foreground font-semibold">2,400+</span> places exported this month
-        </span>
+    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-8 sm:gap-16">
+      <div>
+        <span className="font-display text-6xl sm:text-7xl text-foreground tracking-tight">2,400+</span>
+        <p className="text-muted-foreground text-sm mt-1">places exported this month</p>
       </div>
-      <div className="hidden sm:block w-px h-5 bg-border" />
-      <div className="flex items-center gap-2.5 text-muted-foreground">
-        <div className="flex">
-          {[...Array(5)].map((_, i) => (
-            <Star key={i} className="h-4 w-4 text-amber-400 fill-amber-400" />
-          ))}
-        </div>
-        <span className="text-sm font-body">
-          Loved by <span className="text-foreground font-semibold">500+</span> travelers
-        </span>
+      <div className="w-px h-12 bg-border hidden sm:block" />
+      <div>
+        <span className="font-display text-6xl sm:text-7xl text-foreground tracking-tight">500+</span>
+        <p className="text-muted-foreground text-sm mt-1">travelers love it</p>
+      </div>
+      <div className="w-px h-12 bg-border hidden sm:block" />
+      <div className="flex items-center gap-1">
+        {[...Array(5)].map((_, i) => (
+          <span key={i} className="text-2xl">⭐</span>
+        ))}
       </div>
     </div>
   </motion.div>

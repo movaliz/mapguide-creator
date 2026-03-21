@@ -105,21 +105,22 @@ const Index = () => {
       <HowItWorks />
 
       {/* Upload section */}
-      <section ref={uploadRef} className="w-full max-w-[1100px] mx-auto px-4 sm:px-6 py-24">
+      <section ref={uploadRef} className="w-full max-w-[1100px] mx-auto px-4 sm:px-6 py-32">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ type: "spring", duration: 0.5, bounce: 0 }}
-          className="text-center mb-10"
+          className="mb-12"
         >
-          <h2 className="font-display text-3xl sm:text-4xl text-foreground mb-3">
+          <p className="text-sm font-semibold text-accent uppercase tracking-widest mb-4">Upload</p>
+          <h2 className="font-display text-4xl sm:text-5xl text-foreground mb-4 max-w-2xl">
             Ready? Upload your Saved Places.json
           </h2>
-          <p className="text-muted-foreground text-lg mb-4">
+          <p className="text-muted-foreground text-lg mb-6 max-w-lg">
             It takes less than 30 seconds. Your data never leaves your browser.
           </p>
-          <div className="inline-flex items-center gap-2 bg-card border border-border rounded-2xl px-5 py-3 shadow-soft text-sm text-muted-foreground">
+          <div className="inline-flex items-center gap-2 bg-surface border border-border rounded-xl px-5 py-3 text-sm text-muted-foreground">
             <span>📂</span>
             <span>
               Go to{" "}
@@ -127,7 +128,7 @@ const Index = () => {
                 href="https://takeout.google.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary font-medium hover:underline"
+                className="text-foreground font-semibold hover:underline"
               >
                 takeout.google.com
               </a>
@@ -206,7 +207,7 @@ const Index = () => {
 
       <FinalCTA onCTA={scrollToUpload} />
 
-      <footer className="py-8 text-center text-xs text-muted-foreground/60 border-t border-border/50">
+      <footer className="py-12 text-center text-xs text-muted-foreground border-t border-border">
         exportmymap.com — Share your saved places with anyone
       </footer>
 
