@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Puzzle } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import heroIllustration from "@/assets/hero-illustration.jpg";
+import chromeIcon from "@/assets/chrome-web-store.png";
 
 interface HeroSectionProps {
   onCTA: () => void;
@@ -21,9 +22,9 @@ const HeroSection = ({ onCTA }: HeroSectionProps) => (
           <a
             href="#how-it-works"
             className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-white mb-6 hover:opacity-90 transition-opacity"
-            style={{ background: "#16a34a" }}
+            style={{ background: "#22c55e" }}
           >
-            <Puzzle className="w-4 h-4" />
+            <img src={chromeIcon} alt="Chrome Web Store" className="w-5 h-5" />
             Also available as Chrome Extension
             <ArrowRight className="w-3.5 h-3.5" />
           </a>

@@ -1,6 +1,7 @@
 import { useState, useCallback, useRef } from "react";
 import { motion } from "framer-motion";
-import { Chrome, MousePointerClick, Share2, Download, Upload, FileText, Star } from "lucide-react";
+import { MousePointerClick, Share2, Download, Upload, FileText, Star } from "lucide-react";
+import chromeIcon from "@/assets/chrome-web-store.png";
 import { toast } from "sonner";
 import FileDropzone from "@/components/FileDropzone";
 import PlaceCardGrid from "@/components/PlaceCardGrid";
@@ -12,7 +13,7 @@ import { downloadPDF, printPlaces } from "@/lib/pdf-export";
 const FREE_LIMIT = 10;
 
 const extensionSteps = [
-  { icon: Chrome, title: "Install extension", desc: "Add to Chrome in one click." },
+  { icon: null, title: "Install extension", desc: "Add to Chrome in one click." },
   { icon: MousePointerClick, title: "Open Google Maps", desc: "Go to your saved places as usual." },
   { icon: Share2, title: "Click Export", desc: "Get a shareable link instantly." },
 ];
@@ -82,14 +83,14 @@ const HowItWorks = () => {
             <div className="flex items-center gap-3">
               <span
                 className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold tracking-wider text-white"
-                style={{ background: "#16a34a" }}
+                style={{ background: "#22c55e" }}
               >
                 <Star className="h-3 w-3" /> Recommended
               </span>
               <span className="text-xs text-muted-foreground">No download needed</span>
             </div>
             <div className="hidden sm:flex items-center gap-2 text-muted-foreground">
-              <Chrome className="h-5 w-5" />
+              <img src={chromeIcon} alt="Chrome Web Store" className="h-7 w-7" />
               <span className="text-xs font-medium">Chrome Web Store</span>
             </div>
           </div>
@@ -102,7 +103,7 @@ const HowItWorks = () => {
             {extensionSteps.map((step, i) => (
               <div key={step.title} className="flex items-start gap-3">
                 <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-foreground/5 flex items-center justify-center">
-                  <step.icon className="h-4 w-4 text-foreground" />
+                  {step.icon ? <step.icon className="h-4 w-4 text-foreground" /> : <img src={chromeIcon} alt="Chrome" className="h-5 w-5" />}
                 </div>
                 <div>
                   <div className="flex items-center gap-2 mb-0.5">
