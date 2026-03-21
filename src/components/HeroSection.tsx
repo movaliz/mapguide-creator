@@ -22,7 +22,7 @@ const HeroSection = ({ onCTA }: HeroSectionProps) => (
           <a
             href="#how-it-works"
             className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-white mb-6 hover:opacity-90 transition-opacity"
-            style={{ background: "#16a34a" }}
+            style={{ background: "#22c55e" }}
           >
             <img src={chromeIcon} alt="Chrome Web Store" className="w-5 h-5" />
             Also available as Chrome Extension

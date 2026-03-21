@@ -83,7 +83,7 @@ const HowItWorks = () => {
             <div className="flex items-center gap-3">
               <span
                 className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold tracking-wider text-white"
-                style={{ background: "#16a34a" }}
+                style={{ background: "#22c55e" }}
               >
                 <Star className="h-3 w-3" /> Recommended
               </span>
