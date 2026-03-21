@@ -10,37 +10,43 @@ const tiers = [
     name: "Free",
     price: "$0",
     period: "",
-    description: "Try it out instantly",
-    features: ["Preview first 10 places", "PDF with watermark", "Browser-only parsing"],
+    subtitle: "",
+    features: [
+      "Preview first 10 places only",
+      "Watermark on all exports",
+      "All 3 formats (Share Link, PDF, Print)",
+    ],
     cta: "Get Started Free",
     recommended: false,
   },
   {
     name: "One-Time Export",
     price: "$5",
-    period: "one-time",
-    description: "Export one beautiful guide",
-    features: ["Full place list (no limit)", "PDF download", "Shareable link", "No watermark"],
+    period: "",
+    subtitle: "One-time payment · No subscription",
+    features: [
+      "Full export of one list (unlimited places)",
+      "No watermark",
+      "All 3 formats (Share Link, PDF, Print)",
+      "Never expires",
+    ],
     cta: "Buy One Export",
     recommended: false,
   },
   {
-    name: "Unlimited",
-    price: "$10",
-    period: "/month",
-    description: "Unlimited lists, all formats",
-    features: ["Unlimited lists", "PDF, Print & Share Link", "No watermark", "Priority support"],
-    cta: "Start Unlimited",
-    recommended: true,
-  },
-  {
     name: "Annual",
-    price: "$45",
+    price: "$29",
     period: "/year",
-    description: "Save 62% — best value",
-    features: ["Everything in Unlimited", "62% savings", "Early access features", "Priority support"],
+    subtitle: "$2.40/month · Cancel anytime",
+    features: [
+      "Unlimited exports",
+      "No watermark",
+      "All 3 formats",
+      "Priority support",
+    ],
     cta: "Start Annual",
-    recommended: false,
+    recommended: true,
+    badge: "Best Value",
   },
 ];
 
@@ -61,7 +67,7 @@ const PricingSection = ({ onSelectPlan }: PricingSectionProps) => (
         <p className="text-white/50 text-lg">No hidden fees. Cancel anytime.</p>
       </motion.div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
         {tiers.map((tier, i) => (
           <motion.div
             key={tier.name}
@@ -77,7 +83,7 @@ const PricingSection = ({ onSelectPlan }: PricingSectionProps) => (
           >
             {tier.recommended && (
               <span className="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1 rounded-full bg-accent text-accent-foreground px-3 py-1 text-xs font-semibold tracking-wider">
-                <Star className="h-3 w-3" /> Most Popular
+                <Star className="h-3 w-3" /> {(tier as any).badge || "Best Value"}
               </span>
             )}
             <h3 className="font-display text-xl mt-1">{tier.name}</h3>
@@ -87,7 +93,10 @@ const PricingSection = ({ onSelectPlan }: PricingSectionProps) => (
                 <span className={`text-sm ml-1 ${tier.recommended ? "text-muted-foreground" : "text-white/50"}`}>{tier.period}</span>
               )}
             </div>
-            <p className={`text-sm mb-6 ${tier.recommended ? "text-muted-foreground" : "text-white/50"}`}>{tier.description}</p>
+            {tier.subtitle && (
+              <p className={`text-xs mb-4 ${tier.recommended ? "text-muted-foreground" : "text-white/40"}`}>{tier.subtitle}</p>
+            )}
+            {!tier.subtitle && <div className="mb-4" />}
             <ul className="space-y-2.5 mb-8 flex-1">
               {tier.features.map((f) => (
                 <li key={f} className="flex items-center gap-2.5 text-sm">
