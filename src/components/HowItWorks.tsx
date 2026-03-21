@@ -41,10 +41,16 @@ const HowItWorks = () => {
     }
   }, []);
 
-  const handleExport = (type: "pdf" | "print" | "share") => {
+  const handleExport = async (type: "pdf" | "print" | "share") => {
     const exportPlaces = isPaid ? places : places.slice(0, FREE_LIMIT);
     const watermark = !isPaid;
-    if (type === "share") { toast.info("Shareable links coming soon!"); return; }
+    if (type === "share") {
+      const { generateShareUrl } = await import("@/lib/share-utils");
+      const url = generateShareUrl(exportPlaces);
+      await navigator.clipboard.writeText(url);
+      toast.success("Shareable link copied to clipboard!");
+      return;
+    }
     if (type === "pdf") downloadPDF(exportPlaces, watermark);
     else if (type === "print") printPlaces(exportPlaces);
   };
