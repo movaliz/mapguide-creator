@@ -3,6 +3,11 @@ import type { Place } from "@/lib/json-parser";
 import { ExternalLink, MapPin } from "lucide-react";
 import { getCountryCode, countryFlag } from "@/lib/country-utils";
 
+interface PlaceCardGridProps {
+  places: Place[];
+  maxVisible?: number;
+}
+
 function formatDate(dateStr: string | null): string | null {
   if (!dateStr) return null;
   try {
