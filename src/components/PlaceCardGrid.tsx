@@ -1,38 +1,7 @@
 import { motion } from "framer-motion";
 import type { Place } from "@/lib/json-parser";
 import { ExternalLink, MapPin } from "lucide-react";
-
-interface PlaceCardGridProps {
-  places: Place[];
-  maxVisible?: number;
-}
-
-function getCountryCode(address: string): string | null {
-  const parts = address.split(",").map((s) => s.trim());
-  const last = parts[parts.length - 1];
-  if (!last) return null;
-  const map: Record<string, string> = {
-    germany: "DE", deutschland: "DE", france: "FR", spain: "ES", españa: "ES",
-    italy: "IT", italia: "IT", turkey: "TR", türkiye: "TR", "united states": "US",
-    usa: "US", "united kingdom": "GB", uk: "GB", netherlands: "NL", portugal: "PT",
-    greece: "GR", japan: "JP", australia: "AU", canada: "CA", mexico: "MX",
-    brazil: "BR", austria: "AT", switzerland: "CH", belgium: "BE", sweden: "SE",
-    norway: "NO", denmark: "DK", finland: "FI", poland: "PL", "czech republic": "CZ",
-    czechia: "CZ", hungary: "HU", croatia: "HR", ireland: "IE", iceland: "IS",
-    romania: "RO", bulgaria: "BG", "south korea": "KR", thailand: "TH",
-    vietnam: "VN", indonesia: "ID", india: "IN", china: "CN", singapore: "SG",
-    "new zealand": "NZ", argentina: "AR", colombia: "CO", chile: "CL", peru: "PE",
-    morocco: "MA", egypt: "EG", "south africa": "ZA", israel: "IL", "united arab emirates": "AE",
-    "türkei": "TR", russia: "RU", ukraine: "UA", georgia: "GE",
-  };
-  const lower = last.toLowerCase();
-  if (map[lower]) return map[lower];
-  if (last.length === 2 && last === last.toUpperCase()) return last;
-  return null;
-}
-
-/** Convert a 2-letter country code to flag emoji */
-function countryFlag(code: string): string {
+import { getCountryCode, countryFlag } from "@/lib/country-utils";
   return code
     .toUpperCase()
     .split("")
