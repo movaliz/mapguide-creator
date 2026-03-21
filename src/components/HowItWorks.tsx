@@ -1,14 +1,16 @@
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useMemo } from "react";
 import { motion } from "framer-motion";
 import { MousePointerClick, Share2, Download, Upload, FileText, Star } from "lucide-react";
 import chromeIcon from "@/assets/chrome-web-store.png";
 import { toast } from "sonner";
 import FileDropzone from "@/components/FileDropzone";
 import PlaceCardGrid from "@/components/PlaceCardGrid";
+import PlaceFilters from "@/components/PlaceFilters";
 import FormatToggle, { type ViewFormat } from "@/components/FormatToggle";
 import MapPin from "@/components/MapPin";
 import { parseGoogleMapsJSON, type Place } from "@/lib/json-parser";
 import { downloadPDF, printPlaces } from "@/lib/pdf-export";
+import { getCountryCode } from "@/lib/country-utils";
 
 const FREE_LIMIT = 10;
 
@@ -22,6 +24,8 @@ const HowItWorks = () => {
   const [places, setPlaces] = useState<Place[]>([]);
   const [loading, setLoading] = useState(false);
   const [viewFormat, setViewFormat] = useState<ViewFormat>("share");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCountries, setSelectedCountries] = useState<Set<string>>(new Set());
   const placesRef = useRef<HTMLDivElement>(null);
   const isPaid = false;
 
@@ -32,6 +36,8 @@ const HowItWorks = () => {
       const parsed = parseGoogleMapsJSON(text);
       if (parsed.length === 0) { toast.error("No places found in this file."); return; }
       setPlaces(parsed);
+      setSearchQuery("");
+      setSelectedCountries(new Set());
       toast.success(`Parsed ${parsed.length} places.`);
       setTimeout(() => placesRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
     } catch (err: unknown) {
@@ -41,25 +47,65 @@ const HowItWorks = () => {
     }
   }, []);
 
-  const handleExport = async (type: "pdf" | "print" | "share") => {
-    const exportPlaces = isPaid ? places : places.slice(0, FREE_LIMIT);
-    const watermark = !isPaid;
-    if (type === "share") {
-      const { generateShareUrl } = await import("@/lib/share-utils");
-      const url = generateShareUrl(exportPlaces);
-      await navigator.clipboard.writeText(url);
-      toast.success("Shareable link copied to clipboard!");
+  const filteredPlaces = useMemo(() => {
+    let result = places;
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      result = result.filter(
+        (p) => p.title.toLowerCase().includes(q) || p.address.toLowerCase().includes(q)
+      );
+    }
+    if (selectedCountries.size > 0) {
+      result = result.filter((p) => {
+        const cc = getCountryCode(p.address);
+        return cc && selectedCountries.has(cc);
+      });
+    }
+    return result;
+  }, [places, searchQuery, selectedCountries]);
+
+  const handleToggleCountry = useCallback((code: string) => {
+    if (code === "ALL") {
+      setSelectedCountries(new Set());
       return;
     }
-    if (type === "pdf") downloadPDF(exportPlaces, watermark);
-    else if (type === "print") printPlaces(exportPlaces);
+    setSelectedCountries((prev) => {
+      const next = new Set(prev);
+      if (next.has(code)) next.delete(code);
+      else next.add(code);
+      return next;
+    });
+  }, []);
+
+  const handleExport = async (type: "pdf" | "print" | "share") => {
+    const exportPlaces = isPaid ? filteredPlaces : filteredPlaces.slice(0, FREE_LIMIT);
+    const watermark = !isPaid;
+    if (type === "share") {
+      try {
+        const { generateShareUrl } = await import("@/lib/share-utils");
+        const url = generateShareUrl(exportPlaces);
+        await navigator.clipboard.writeText(url);
+        toast.success("Shareable link copied to clipboard!");
+      } catch {
+        toast.error("Could not copy link. Please try again.");
+      }
+      return;
+    }
+    if (type === "pdf") {
+      downloadPDF(exportPlaces, watermark);
+      toast.success("PDF downloaded successfully");
+    } else if (type === "print") {
+      printPlaces(exportPlaces);
+    }
   };
 
   const handleFormatChange = (format: ViewFormat) => {
     if (format === "pdf") handleExport("pdf");
     else if (format === "print") handleExport("print");
-    else setViewFormat("share");
+    else if (format === "share") handleExport("share");
   };
+
+  const isFiltered = searchQuery.trim() !== "" || selectedCountries.size > 0;
 
   return (
     <section id="how-it-works" className="w-full">
@@ -199,23 +245,36 @@ const HowItWorks = () => {
         {places.length > 0 && (
           <div ref={placesRef} className="mt-10">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ type: "spring", duration: 0.5, bounce: 0 }}>
-              <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center justify-between mb-4">
                 <div>
                   <h2 className="font-display text-2xl text-foreground">Your Saved Places</h2>
-                  <p className="text-sm text-muted-foreground mt-1">{places.length} places found</p>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    {isFiltered
+                      ? `Showing ${filteredPlaces.length} of ${places.length} places`
+                      : `${places.length} places found`}
+                  </p>
                 </div>
                 <div className="flex items-center gap-3">
                   <FormatToggle active={viewFormat} onChange={handleFormatChange} />
-                  <button onClick={() => setPlaces([])} className="text-label text-muted-foreground hover:text-foreground transition-colors">New file</button>
+                  <button onClick={() => { setPlaces([]); setSearchQuery(""); setSelectedCountries(new Set()); }} className="text-label text-muted-foreground hover:text-foreground transition-colors">New file</button>
                 </div>
               </div>
+
+              <PlaceFilters
+                places={places}
+                searchQuery={searchQuery}
+                onSearchChange={setSearchQuery}
+                selectedCountries={selectedCountries}
+                onToggleCountry={handleToggleCountry}
+              />
+
               {!isPaid && places.length > FREE_LIMIT && (
                 <div className="mb-4 py-3 px-4 rounded-xl bg-muted/50 border border-border text-sm text-muted-foreground text-center">
                   Showing {FREE_LIMIT} of {places.length} places.{" "}
                   <a href="#pricing" className="text-accent font-medium hover:underline">Upgrade to export your full list.</a>
                 </div>
               )}
-              <PlaceCardGrid places={places} maxVisible={isPaid ? undefined : FREE_LIMIT} />
+              <PlaceCardGrid places={filteredPlaces} maxVisible={isPaid ? undefined : FREE_LIMIT} />
             </motion.div>
           </div>
         )}
