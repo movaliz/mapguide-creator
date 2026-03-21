@@ -1,4 +1,5 @@
 import type { Place } from "./json-parser";
+import { getCountryCode, countryFlag } from "./country-utils";
 
 function escapeHtml(str: string) {
   return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -17,11 +18,6 @@ function formatDate(dateStr: string | null): string {
   }
 }
 
-function getCountryFromAddress(address: string): string {
-  const parts = address.split(",").map((s) => s.trim());
-  return parts[parts.length - 1] || "";
-}
-
 export function generatePdfHTML(places: Place[], watermark: boolean): string {
   const now = new Intl.DateTimeFormat("en-US", {
     year: "numeric",
@@ -32,18 +28,18 @@ export function generatePdfHTML(places: Place[], watermark: boolean): string {
   const rows = places
     .map((p, i) => {
       const date = formatDate(p.date);
-      const country = getCountryFromAddress(p.address);
+      const cc = getCountryCode(p.address);
+      const flag = cc ? countryFlag(cc) : "📍";
       return `
     <tr>
       <td style="padding:14px 16px;color:#9ca3af;text-align:right;width:36px;font-variant-numeric:tabular-nums;vertical-align:top;font-size:0.875rem;">${i + 1}</td>
       <td style="padding:14px 16px;vertical-align:top;">
         <div style="display:flex;align-items:flex-start;gap:8px;">
-          <span style="font-size:1.1rem;line-height:1;">📍</span>
+          <span style="font-size:1.1rem;line-height:1;">${flag}</span>
           <div>
             <strong style="font-family:'DM Sans','Inter',sans-serif;font-size:1.1rem;font-weight:700;color:#1a1a2e;">${escapeHtml(p.title)}</strong>
             ${p.address ? `<div style="color:#6b7280;font-size:0.85rem;margin-top:3px;">${escapeHtml(p.address)}</div>` : ""}
             <div style="display:flex;gap:16px;margin-top:4px;font-size:0.8rem;color:#9ca3af;">
-              ${country ? `<span>${escapeHtml(country)}</span>` : ""}
               ${date ? `<span>Saved ${date}</span>` : ""}
             </div>
             ${p.url ? `<div style="margin-top:4px;font-size:0.75rem;word-break:break-all;"><a href="${escapeHtml(p.url)}" style="color:#2563eb;text-decoration:none;">${escapeHtml(p.url)}</a></div>` : ""}
