@@ -207,7 +207,7 @@ const Index = () => {
 
       <FinalCTA onCTA={scrollToUpload} />
 
-      <footer className="py-8 text-center text-xs text-muted-foreground/60 border-t border-border/50">
+      <footer className="py-12 text-center text-xs text-muted-foreground border-t border-border">
         exportmymap.com — Share your saved places with anyone
       </footer>
 

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Inter:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,55 +6,58 @@
 
 @layer base {
   :root {
-    --background: 160 30% 97%;
-    --foreground: 210 25% 12%;
+    --background: 40 20% 98%;
+    --foreground: 0 0% 10%;
 
     --card: 0 0% 100%;
-    --card-foreground: 210 25% 12%;
+    --card-foreground: 0 0% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 210 25% 12%;
+    --popover-foreground: 0 0% 10%;
 
-    --primary: 162 63% 41%;
-    --primary-foreground: 0 0% 100%;
-    --primary-glow: 162 70% 52%;
-    --primary-soft: 162 50% 94%;
+    --primary: 0 0% 10%;
+    --primary-foreground: 40 20% 98%;
+    --primary-glow: 0 0% 20%;
+    --primary-soft: 40 15% 95%;
 
-    --secondary: 160 20% 95%;
-    --secondary-foreground: 210 25% 12%;
+    --secondary: 40 10% 95%;
+    --secondary-foreground: 0 0% 10%;
 
-    --muted: 160 15% 94%;
-    --muted-foreground: 210 10% 50%;
+    --muted: 40 8% 93%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 162 63% 41%;
+    --accent: 15 90% 55%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 160 15% 90%;
-    --input: 160 15% 90%;
-    --ring: 162 63% 41%;
+    --border: 40 10% 90%;
+    --input: 40 10% 90%;
+    --ring: 0 0% 10%;
 
-    --radius: 1rem;
+    --radius: 0.75rem;
 
-    --surface: 160 20% 96%;
+    --surface: 40 15% 96%;
     --surface-raised: 0 0% 100%;
 
-    --gradient-hero: linear-gradient(180deg, hsl(160 40% 95%) 0%, hsl(160 30% 97%) 100%);
-    --gradient-section: linear-gradient(180deg, hsl(160 30% 97%) 0%, hsl(0 0% 100%) 100%);
-    --shadow-soft: 0 2px 16px -2px hsl(210 25% 12% / 0.06);
-    --shadow-elevated: 0 8px 32px -4px hsl(210 25% 12% / 0.1);
-    --shadow-glow: 0 0 32px -8px hsl(162 63% 41% / 0.3);
+    --dark: 0 0% 10%;
+    --dark-foreground: 40 20% 95%;
+
+    --gradient-hero: linear-gradient(180deg, hsl(40 20% 98%) 0%, hsl(40 15% 96%) 100%);
+    --gradient-section: linear-gradient(180deg, hsl(40 15% 96%) 0%, hsl(40 20% 98%) 100%);
+    --shadow-soft: 0 2px 20px -4px hsl(0 0% 0% / 0.06);
+    --shadow-elevated: 0 12px 40px -8px hsl(0 0% 0% / 0.12);
+    --shadow-glow: 0 0 0 1px hsl(0 0% 10% / 0.08);
 
     --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 210 25% 12%;
-    --sidebar-primary: 162 63% 41%;
+    --sidebar-foreground: 0 0% 10%;
+    --sidebar-primary: 0 0% 10%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 162 63% 41%;
+    --sidebar-accent: 15 90% 55%;
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 160 15% 90%;
-    --sidebar-ring: 162 63% 41%;
+    --sidebar-border: 40 10% 90%;
+    --sidebar-ring: 0 0% 10%;
   }
 }
 
@@ -69,36 +72,43 @@
   }
 
   h1, h2, h3, h4 {
-    font-family: 'DM Sans', 'Inter', sans-serif;
+    font-family: 'Space Grotesk', 'DM Sans', sans-serif;
     font-weight: 700;
     -webkit-font-smoothing: antialiased;
+    letter-spacing: -0.03em;
   }
 }
 
 @layer utilities {
   .font-display {
-    font-family: 'DM Sans', 'Inter', sans-serif;
+    font-family: 'Space Grotesk', 'DM Sans', sans-serif;
     font-weight: 700;
   }
   .font-body {
     font-family: 'DM Sans', 'Inter', sans-serif;
   }
   .text-hero {
-    font-size: clamp(2.5rem, 5vw + 1rem, 4rem);
-    line-height: 1.1;
-    letter-spacing: -0.03em;
+    font-size: clamp(3.2rem, 7vw + 1rem, 5.5rem);
+    line-height: 1.0;
+    letter-spacing: -0.04em;
     font-weight: 700;
   }
   .text-label {
     font-size: 0.875rem;
     font-weight: 600;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.01em;
   }
   .bg-hero-gradient {
     background: var(--gradient-hero);
   }
   .bg-section-gradient {
     background: var(--gradient-section);
+  }
+  .bg-dark {
+    background: hsl(var(--dark));
+  }
+  .text-dark-foreground {
+    color: hsl(var(--dark-foreground));
   }
   .shadow-soft {
     box-shadow: var(--shadow-soft);
@@ -108,5 +118,23 @@
   }
   .shadow-glow {
     box-shadow: var(--shadow-glow);
+  }
+
+  /* Hand-drawn underline accent */
+  .accent-underline {
+    position: relative;
+    display: inline-block;
+  }
+  .accent-underline::after {
+    content: '';
+    position: absolute;
+    left: -4%;
+    bottom: -4px;
+    width: 108%;
+    height: 12px;
+    background: hsl(15 90% 55% / 0.25);
+    border-radius: 50%;
+    transform: rotate(-1deg);
+    z-index: -1;
   }
 }

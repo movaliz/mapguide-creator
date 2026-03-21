@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['"DM Sans"', 'Inter', 'sans-serif'],
-        body: ['"DM Sans"', 'Inter', 'sans-serif'],
+        display: ['"Space Grotesk"', '"DM Sans"', 'sans-serif'],
+        body: ['"DM Sans"', '"Inter"', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -25,6 +25,10 @@ export default {
         foreground: "hsl(var(--foreground))",
         surface: "hsl(var(--surface))",
         "surface-raised": "hsl(var(--surface-raised))",
+        dark: {
+          DEFAULT: "hsl(var(--dark))",
+          foreground: "hsl(var(--dark-foreground))",
+        },
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",

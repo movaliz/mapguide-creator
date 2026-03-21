@@ -45,19 +45,20 @@ const tiers = [
 ];
 
 const PricingSection = ({ onSelectPlan }: PricingSectionProps) => (
-  <section id="pricing" className="w-full">
-    <div className="max-w-[1100px] mx-auto px-4 sm:px-6 py-24">
+  <section id="pricing" className="w-full bg-dark text-dark-foreground">
+    <div className="max-w-[1100px] mx-auto px-4 sm:px-6 py-32">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ type: "spring", duration: 0.6, bounce: 0 }}
-        className="text-center mb-16"
+        className="mb-20"
       >
-        <h2 className="font-display text-3xl sm:text-5xl text-foreground mb-4">
+        <p className="text-sm font-semibold text-accent uppercase tracking-widest mb-4">Pricing</p>
+        <h2 className="font-display text-4xl sm:text-5xl text-white mb-4 max-w-xl">
           Simple, honest pricing
         </h2>
-        <p className="text-muted-foreground text-lg">No hidden fees. Cancel anytime.</p>
+        <p className="text-white/50 text-lg">No hidden fees. Cancel anytime.</p>
       </motion.div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -68,43 +69,45 @@ const PricingSection = ({ onSelectPlan }: PricingSectionProps) => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.08, type: "spring", duration: 0.5, bounce: 0 }}
-            className={`relative rounded-3xl bg-card p-6 flex flex-col border transition-all duration-300 ${
+            className={`relative rounded-2xl p-6 flex flex-col transition-all duration-300 ${
               tier.recommended
-                ? "border-primary shadow-glow"
-                : "border-border shadow-soft hover:shadow-elevated hover:border-primary/20"
+                ? "bg-white text-foreground ring-2 ring-accent"
+                : "bg-white/[0.06] text-white border border-white/10 hover:bg-white/[0.1]"
             }`}
           >
             {tier.recommended && (
-              <span className="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1 rounded-full bg-primary text-primary-foreground px-3 py-1 text-xs font-semibold tracking-wider">
+              <span className="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1 rounded-full bg-accent text-accent-foreground px-3 py-1 text-xs font-semibold tracking-wider">
                 <Star className="h-3 w-3" /> Most Popular
               </span>
             )}
-            <h3 className="font-display text-xl text-foreground mt-1">{tier.name}</h3>
+            <h3 className="font-display text-xl mt-1">{tier.name}</h3>
             <div className="mt-3 mb-1">
-              <span className="text-4xl font-body font-bold text-foreground">{tier.price}</span>
+              <span className="text-4xl font-display">{tier.price}</span>
               {tier.period && (
-                <span className="text-muted-foreground text-sm ml-1">{tier.period}</span>
+                <span className={`text-sm ml-1 ${tier.recommended ? "text-muted-foreground" : "text-white/50"}`}>{tier.period}</span>
               )}
             </div>
-            <p className="text-sm text-muted-foreground mb-6">{tier.description}</p>
+            <p className={`text-sm mb-6 ${tier.recommended ? "text-muted-foreground" : "text-white/50"}`}>{tier.description}</p>
             <ul className="space-y-2.5 mb-8 flex-1">
               {tier.features.map((f) => (
-                <li key={f} className="flex items-center gap-2.5 text-sm text-foreground">
-                  <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <Check className="h-3 w-3 text-primary" />
+                <li key={f} className="flex items-center gap-2.5 text-sm">
+                  <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${
+                    tier.recommended ? "bg-accent/10" : "bg-white/10"
+                  }`}>
+                    <Check className={`h-3 w-3 ${tier.recommended ? "text-accent" : "text-white/70"}`} />
                   </div>
                   {f}
                 </li>
               ))}
             </ul>
             <motion.button
-              whileHover={{ scale: 1.03 }}
+              whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={tier.name === "Free" ? undefined : onSelectPlan}
               className={`w-full rounded-full py-3.5 text-label transition-all ${
                 tier.recommended
-                  ? "bg-primary text-primary-foreground shadow-glow hover:shadow-[0_0_48px_-8px_hsl(var(--primary)/0.45)]"
-                  : "bg-surface text-foreground border border-border hover:border-primary/30 hover:bg-primary-soft"
+                  ? "bg-foreground text-background hover:opacity-90"
+                  : "bg-white/10 text-white border border-white/20 hover:bg-white/20"
               }`}
             >
               {tier.cta}
