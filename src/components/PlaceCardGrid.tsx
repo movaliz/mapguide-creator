@@ -2,12 +2,6 @@ import { motion } from "framer-motion";
 import type { Place } from "@/lib/json-parser";
 import { ExternalLink, MapPin } from "lucide-react";
 import { getCountryCode, countryFlag } from "@/lib/country-utils";
-  return code
-    .toUpperCase()
-    .split("")
-    .map((c) => String.fromCodePoint(0x1f1e6 + c.charCodeAt(0) - 65))
-    .join("");
-}
 
 function formatDate(dateStr: string | null): string | null {
   if (!dateStr) return null;

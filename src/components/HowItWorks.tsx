@@ -41,7 +41,7 @@ const HowItWorks = () => {
     }
   }, []);
 
-  const handleExport = (type: "pdf" | "print" | "share") => {
+  const handleExport = async (type: "pdf" | "print" | "share") => {
     const exportPlaces = isPaid ? places : places.slice(0, FREE_LIMIT);
     const watermark = !isPaid;
     if (type === "share") {
