@@ -12,39 +12,79 @@ export const blogPosts: BlogPost[] = [
     title: "How to Export Your Google Maps Saved Places (Step by Step)",
     desc: "A complete walkthrough of exporting your saved places using Google Takeout or our Chrome Extension.",
     date: "Mar 15, 2026",
-    content: `Google Maps lets you save your favorite restaurants, hotels, landmarks, and more — but sharing those lists with others isn't straightforward. Here's how to export them.
+    content: `Google Maps lets you save hundreds of places — restaurants, hotels, landmarks, hidden gems. But when it comes to actually exporting or sharing that list, Google offers no built-in option. No export button. No "share my list" feature. Nothing.
 
-## Method 1: Using the ExportMyMap Chrome Extension (Recommended)
+This guide shows you exactly how to get your saved places out of Google Maps in 2026 — using two methods.
 
-The fastest way to export your saved places is with our free Chrome Extension:
+## Why Google Maps Doesn't Let You Export
 
-1. **Install the extension** from the Chrome Web Store — it takes one click.
-2. **Open Google Maps** and navigate to your saved places (Your places → Saved).
-3. **Click the Export button** that appears in the extension toolbar.
-4. Choose your format: shareable link, PDF guide, or print view.
+Google Maps is designed to keep you inside its ecosystem. Your saved places live in your Google account, and there's no native way to download them as a file, share them as a link, or send them to someone who doesn't have your login.
 
-That's it — no file downloads, no waiting for Google Takeout.
+This frustrates millions of travelers every year — especially when planning trips with friends, creating travel guides, or simply wanting a backup of years of saved spots.
 
-## Method 2: Using Google Takeout
+## Method 1: Use the ExportMyMap Chrome Extension (Easiest)
 
-If you prefer a manual approach, Google Takeout lets you download your data:
+The fastest way to export your saved places is with the ExportMyMap Chrome Extension. It works directly inside Google Maps — no downloads, no account needed.
 
-1. Go to [takeout.google.com](https://takeout.google.com).
-2. Deselect all products, then scroll down and select **"Saved"** under Google Maps.
-3. Click **"Next step"** and choose your export format (ZIP).
-4. Wait for Google to prepare your download (this can take minutes to hours).
-5. Download the ZIP and extract **Saved Places.json**.
-6. Upload the JSON file to [exportmymap.com](/) to generate your guide.
+**How it works:**
 
-## Tips for a Clean Export
+1. Install the ExportMyMap extension from the Chrome Web Store
+2. Open Google Maps in Chrome and navigate to your saved places
+3. Click the ExportMyMap icon in your browser toolbar
+4. Choose your export format: Share Link, Download PDF, or Print List
+5. Done — your list is ready in seconds
 
-- **Review your lists first.** Remove any outdated or irrelevant saves to keep your export tidy.
-- **Organize by list.** Google Maps lets you create custom lists (e.g., "Tokyo 2025", "Best Coffee"). Export each list separately for cleaner results.
-- **Check your addresses.** Some saved places may have incomplete address data — especially if you saved them via a quick pin drop.
+This method requires no technical knowledge and takes under a minute. You can generate a beautiful shareable link that anyone can open, even without a Google account.
 
-## What You Get
+👉 Try ExportMyMap free at [exportmymap.com](/)
 
-Whether you use the Chrome Extension or Google Takeout, ExportMyMap turns your raw data into a beautifully formatted guide with place names, addresses, and direct Google Maps links.`,
+## Method 2: Export via Google Takeout
+
+Google Takeout is Google's official data export tool. It lets you download a copy of all your Google data — including your Maps saved places.
+
+**Step 1: Go to Google Takeout**
+
+Open [takeout.google.com](https://takeout.google.com) and sign in with your Google account.
+
+**Step 2: Select only Maps data**
+
+Click "Deselect all" first, then scroll down and check only "Maps (your places)". This keeps the export small and fast.
+
+**Step 3: Download your archive**
+
+Click "Next step", choose your file format (ZIP is fine), and click "Create export". Google will email you a download link — usually within a few minutes.
+
+**Step 4: Find your Saved Places file**
+
+Unzip the downloaded archive. Inside you'll find a folder called Maps with a file called Saved Places.json. This is your data.
+
+**Step 5: Upload to ExportMyMap**
+
+Go to [exportmymap.com](/), upload your Saved Places.json file, and instantly see all your places as a beautiful list. Then export as a shareable link, PDF, or print list.
+
+## What Export Formats Are Available?
+
+Once your places are in ExportMyMap, you can export in three formats:
+
+- **Share Link** — generates a public URL like exportmymap.com/list/abc123 that anyone can open. Perfect for sharing with friends or embedding in a travel blog.
+- **Download PDF** — creates a clean, printable PDF guide with all your places, addresses, and Google Maps links. Great for offline use or printing before a trip.
+- **Print List** — opens a print-optimized page with a minimal black-and-white numbered list. Ink-saving, no images, just the essentials.
+
+## Frequently Asked Questions
+
+**Is my data safe?** Yes. When you upload your JSON file to ExportMyMap, it's processed entirely in your browser. Your places are never stored on our servers unless you choose to generate a Share Link.
+
+**Do I need a Google account to use ExportMyMap?** No. You just need your Saved Places.json file from Google Takeout, or the Chrome Extension if you want to skip the file entirely.
+
+**How many places can I export for free?** The free plan shows a preview of your first 10 places. To export your full list, you can purchase a one-time export for $5 or get unlimited exports with an annual plan for $29/year.
+
+**Does this work on mobile?** Google Takeout works on any device. The ExportMyMap Chrome Extension requires a desktop Chrome browser.
+
+## Summary
+
+Google Maps doesn't make it easy to export your saved places — but it's absolutely possible. The quickest method is the ExportMyMap Chrome Extension, which works in one click directly inside Google Maps. If you prefer to use Google Takeout, upload your Saved Places.json file to ExportMyMap and export in seconds.
+
+👉 Export your Google Maps places free at [exportmymap.com](/)`,
   },
   {
     slug: "5-ways-to-share-travel-list-with-friends",
