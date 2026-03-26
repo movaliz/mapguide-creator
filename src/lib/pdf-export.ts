@@ -49,8 +49,17 @@ export function downloadPDF(places: Place[], _watermark: boolean) {
 
   doc.setTextColor(30, 30, 30);
 
+  // Country code to color map for flag-like badges
+  const flagColors: Record<string, [number, number, number]> = {
+    DE: [0, 0, 0], FR: [0, 35, 149], ES: [198, 11, 30], IT: [0, 140, 69],
+    TR: [227, 10, 23], US: [60, 59, 110], GB: [0, 36, 125], NL: [174, 28, 40],
+    PT: [0, 102, 0], GR: [0, 20, 137], JP: [188, 0, 45], AU: [0, 0, 139],
+    CA: [255, 0, 0], MX: [0, 104, 71], BR: [0, 151, 57], AT: [237, 41, 57],
+    CH: [255, 0, 0], SE: [0, 106, 167], NO: [186, 12, 47], DK: [198, 12, 48],
+  };
+  const defaultBadgeColor: [number, number, number] = [100, 100, 100];
+
   places.forEach((p, i) => {
-    // Check if we need a new page
     if (y > pageH - 25) {
       doc.addPage();
       y = 20;
@@ -59,7 +68,6 @@ export function downloadPDF(places: Place[], _watermark: boolean) {
     const num = `${i + 1}.`;
     const date = formatDate(p.date);
     const cc = getCountryCode(p.address);
-    const countryLabel = cc ? ` [${cc}]` : "";
 
     // Number
     doc.setFont("helvetica", "normal");
@@ -67,15 +75,32 @@ export function downloadPDF(places: Place[], _watermark: boolean) {
     doc.setTextColor(150, 150, 150);
     doc.text(num, marginL, y);
 
-    const textX = marginL + 10;
+    let textX = marginL + 10;
+
+    // Country badge (colored rounded rect with code)
+    if (cc) {
+      const badgeColor = flagColors[cc] || defaultBadgeColor;
+      const badgeW = 10;
+      const badgeH = 4.5;
+      const badgeY = y - 3.5;
+      doc.setFillColor(badgeColor[0], badgeColor[1], badgeColor[2]);
+      doc.roundedRect(textX, badgeY, badgeW, badgeH, 1, 1, "F");
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(7);
+      doc.setTextColor(255, 255, 255);
+      doc.text(cc, textX + badgeW / 2, y - 0.5, { align: "center" });
+      textX += badgeW + 3;
+    }
 
     // Title
     doc.setFont("helvetica", "bold");
     doc.setFontSize(11);
     doc.setTextColor(26, 26, 46);
-    const titleLines = doc.splitTextToSize(p.title + countryLabel, contentW - 10);
+    const titleLines = doc.splitTextToSize(p.title, contentW - (textX - marginL));
     doc.text(titleLines, textX, y);
     y += titleLines.length * 5;
+
+    const infoX = marginL + 10;
 
     // Address
     if (p.address) {
@@ -83,7 +108,7 @@ export function downloadPDF(places: Place[], _watermark: boolean) {
       doc.setFontSize(9);
       doc.setTextColor(100, 100, 100);
       const addrLines = doc.splitTextToSize(p.address, contentW - 10);
-      doc.text(addrLines, textX, y);
+      doc.text(addrLines, infoX, y);
       y += addrLines.length * 4;
     }
 
@@ -91,7 +116,7 @@ export function downloadPDF(places: Place[], _watermark: boolean) {
     if (date) {
       doc.setFontSize(8);
       doc.setTextColor(150, 150, 150);
-      doc.text(`Saved ${date}`, textX, y);
+      doc.text(`Saved ${date}`, infoX, y);
       y += 3.5;
     }
 
@@ -100,11 +125,11 @@ export function downloadPDF(places: Place[], _watermark: boolean) {
       doc.setFontSize(7.5);
       doc.setTextColor(37, 99, 235);
       const urlLines = doc.splitTextToSize(p.url, contentW - 10);
-      doc.textWithLink(urlLines[0], textX, y, { url: p.url });
+      doc.textWithLink(urlLines[0], infoX, y, { url: p.url });
       y += 4;
     }
 
-    y += 5; // spacing between entries
+    y += 5;
   });
 
   // Watermark
