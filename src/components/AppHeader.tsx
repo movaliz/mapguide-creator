@@ -26,9 +26,7 @@ const AppHeader = ({ hasPlaces, onExportPDF, onPrint, onShare }: AppHeaderProps)
     <header className="sticky top-0 z-50 backdrop-blur-md bg-background/80 border-b border-border/50">
       <div className="max-w-[1100px] mx-auto flex items-center justify-between py-4 px-6">
         <Link to="/" className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-foreground flex items-center justify-center">
-            <MapPin className="text-background h-4 w-4" />
-          </div>
+          <img src={logo} alt="ExportMyMap" className="w-8 h-8 rounded-lg" />
           <span className="font-display text-lg text-foreground">exportmymap.com</span>
         </Link>
         {hasPlaces ? (
