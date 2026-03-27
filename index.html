@@ -1,53 +1,39 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ExportMyMap — Export & Share Google Maps Saved Places</title>
-    <meta name="description" content="Export your Google Maps saved places as a shareable link, PDF, or print list. Works with Google Takeout JSON or our Chrome Extension — no login required." />
-    <meta name="author" content="exportmymap.com" />
-    <link rel="canonical" href="https://exportmymap.com" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ExportMyMap — Export & Share Google Maps Saved Places</title>
+  <meta name="description" content="Export your Google Maps saved places as a shareable link, PDF, or print list. No Google Takeout needed." />
+  <meta name="author" content="exportmymap.com" />
+  <link rel="canonical" href="https://exportmymap.com" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
 
-    <meta property="og:title" content="ExportMyMap — Export & Share Google Maps Saved Places" />
-    <meta property="og:description" content="Export your Google Maps saved places as a shareable link, PDF, or print list. Works with Google Takeout JSON or our Chrome Extension — no login required." />
-    <meta property="og:type" content="website" />
+  <!-- Open Graph -->
+  <meta property="og:title" content="ExportMyMap — Export & Share Google Maps Saved Places" />
+  <meta property="og:description" content="Export your Google Maps saved places as PDF, print list or shareable link. No Google Takeout needed." />
+  <meta property="og:image" content="https://exportmymap.com/og-image.jpg" />
+  <meta property="og:url" content="https://exportmymap.com" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="ExportMyMap" />
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="ExportMyMap — Export & Share Google Maps Saved Places" />
-    <meta name="twitter:description" content="Generate a beautiful shareable link or PDF from your Google Maps saved places." />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ExportMyMap — Export & Share Google Maps Saved Places" />
+  <meta name="twitter:description" content="Export your Google Maps saved places as PDF, print list or shareable link." />
+  <meta name="twitter:image" content="https://exportmymap.com/og-image.jpg" />
 
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "exportmymap.com",
-      "applicationCategory": "UtilitiesApplication",
-      "operatingSystem": "Web",
-      "description": "Generate a beautiful shareable link or PDF from your Google Maps saved places.",
-      "offers": [
-        { "@type": "Offer", "price": "0", "priceCurrency": "USD", "name": "Free" },
-        { "@type": "Offer", "price": "5", "priceCurrency": "USD", "name": "One-Time Export" },
-        { "@type": "Offer", "price": "10", "priceCurrency": "USD", "name": "Monthly" }
-      ]
-    }
-    </script>
-    <!-- Favicon -->
-<link rel="icon" type="image/png" href="/favicon.png" />
-
-<!-- Open Graph -->
-<meta property="og:title" content="ExportMyMap — Export & Share Google Maps Saved Places" />
-<meta property="og:description" content="Export your Google Maps saved places as PDF, print list or shareable link. No Google Takeout needed." />
-<meta property="og:image" content="https://exportmymap.com/og-image.jpg" />
-<meta property="og:url" content="https://exportmymap.com" />
-<meta property="og:type" content="website" />
-
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://exportmymap.com/og-image.jpg" />
-  </head>
-
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "ExportMyMap",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web",
+    "description": "Export your Google Maps saved places as PDF, print list or shareable link.",
+    "offers": [
+      { "@type": "Offer", "price": "0", "priceCurrency": "USD", "name": "Free" },
+      { "@type": "Offer", "price": "5", "priceCurrency": "USD", "name": "One-Time Export" },
+      { "@type": "Offer", "price": "10", "priceCurrency": "USD", "name": "Monthly" }
+    ]
+  }
+  </script>
+</head>
